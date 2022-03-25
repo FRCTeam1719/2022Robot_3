@@ -3,6 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.commands;
+import frc.robot.LinearSetpointTrajectory;
 import frc.robot.subsystems.BeltSubsystem;
 import frc.robot.subsystems.ShooterSubsystem;
 
@@ -26,7 +27,8 @@ public class ShootSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-      ShootSequence1()
+     // ShootSequence1()
+
      );
   }
   public SequentialCommandGroup ShootSequence1(){
@@ -54,6 +56,9 @@ public class ShootSequence extends SequentialCommandGroup {
        return new InstantCommand (()-> this.m_shooterSubsystem.startShooter() ).andThen(new WaitCommand(3).andThen(new InstantCommand(()-> this.m_shooterSubsystem.startShooter())));
 
      }
-     
+     public ShootPIDCommand ShootPID(){
+    
+      return new ShootPIDCommand(new LinearSetpointTrajectory(0,1,1.5), m_shooterSubsystem);
+     }
 }
 

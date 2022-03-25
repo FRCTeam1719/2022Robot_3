@@ -10,6 +10,8 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
+import java.lang.Math;
+import com.revrobotics.RelativeEncoder;
 //import java.util.Timer;
 
 
@@ -17,6 +19,7 @@ import frc.robot.Constants;
 public class ShooterSubsystem extends SubsystemBase {
     private static final double QUEUE_MOTOR_POWER = .5;
     private CANSparkMax m_shooterMotor;  
+    private RelativeEncoder m_shooterEncoder;
     private CANSparkMax m_queueFeederWheerMotor; 
     private double m_velocity = 1.0;
 
@@ -34,18 +37,21 @@ public class ShooterSubsystem extends SubsystemBase {
   private void init(){
     m_shooterMotor = new CANSparkMax(Constants.SHOOTER_MOTOR_CAN_ID, MotorType.kBrushless);
     m_shooterMotor.restoreFactoryDefaults();
+    m_shooterEncoder= this.m_shooterMotor.getEncoder();
     
     m_queueFeederWheerMotor = new CANSparkMax(Constants.QUEUE_MOTOR_CAN2_ID, MotorType.kBrushless);
     m_queueFeederWheerMotor.restoreFactoryDefaults();
     m_queueFeederWheerMotor.setIdleMode(IdleMode.kBrake);
   
   }
-
+  public double getVelocity(){
+  return this.m_shooterEncoder.getVelocity();
+  }
   
-  // public void increaseVelocity(double inc) {
-  //   this.m_velocity = Math.min(1, this.m_velocity+inc);
-  //   // this increases the speed of the shooter motor
-  // }
+  public void increaseVelocity(double inc) {
+    this.m_velocity = Math.min(1, this.m_velocity+inc);
+    // this increases the speed of the shooter motor
+  }
 
   // public void increaseVelocity() {
   //   this.increaseVelocity(.05);
