@@ -85,7 +85,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // public void  startQueueBelt(){
   //   System.out.println("startQueue");
   //   this.m_beltSubsystem.startBelt(1.0);  
-  //   m_isQueue1On = true;
+  //   m_isQueue1on = true;
   // }
 
   

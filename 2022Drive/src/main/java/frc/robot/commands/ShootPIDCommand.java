@@ -19,6 +19,7 @@ public class ShootPIDCommand extends PIDCommand {
   public ShootPIDCommand(LinearSetpointTrajectory setpointTrajectory, ShooterSubsystem m_shooterSubsystem) {
     super(
         // The controller that the command will use
+        //TODO: avoid hardcoding
         new PIDController(1, 0, 0),
         // This should return the measurement
         () -> m_shooterSubsystem.getVelocity(),
@@ -26,6 +27,7 @@ public class ShootPIDCommand extends PIDCommand {
         () -> setpointTrajectory.getSetpoint(),
         // This uses the output
         output -> {
+          //TODO: this is unlikely to work - the output is not the increase.  it the value to set it to.  
           m_shooterSubsystem.increaseVelocity(output);
           // Use the output here
         });

@@ -14,12 +14,12 @@ public class LinearSetpointTrajectory {
     public LinearSetpointTrajectory(
         double startPosition,
         double endPosition,
-        double timeInMillisecondsToComplete
+        double timeInSecondsToComplete
     ) {
         System.out.println("constructor, " + new Date().getTime());
         this.m_startPosition = startPosition;
         this.m_endPosition = endPosition;
-        this.m_timeInMillisecondsToComplete = timeInMillisecondsToComplete;
+        this.m_timeInMillisecondsToComplete = 1000*timeInSecondsToComplete;
     }
 
     private void initTiming() {

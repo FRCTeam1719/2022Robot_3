@@ -57,8 +57,7 @@ public class ShootSequence extends SequentialCommandGroup {
 
      }
      public ShootPIDCommand ShootPID(){
-    
-      return new ShootPIDCommand(new LinearSetpointTrajectory(0,1,1.5), m_shooterSubsystem);
+      return new ShootPIDCommand(new LinearSetpointTrajectory(0,5000,1.5), m_shooterSubsystem);
      }
 }
 
