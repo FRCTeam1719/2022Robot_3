@@ -145,11 +145,7 @@ XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONT
     .whenPressed(
       new FollowLimelightSequence(this.m_tankDriveSubsystem, this.m_limelightVisionSubsystem)
       
-<<<<<<< HEAD
  );
-=======
-    );
->>>>>>> main
 
     //Start: Queuing controls
     //TODO: Refactor queue to toggle with single button
