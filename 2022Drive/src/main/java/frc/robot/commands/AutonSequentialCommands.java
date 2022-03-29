@@ -59,7 +59,7 @@ public class AutonSequentialCommands extends SequentialCommandGroup {
     return new DriveDistancePidCommand(m_tankDriveSubsystem, feetTotal);
   }
 
-  public TurnAnglePidCommand  turn(double angle){
+  private TurnAnglePidCommand  turn(double angle){
     angleTotal += angle;
     System.out.println(angleTotal);
     return new TurnAnglePidCommand(m_tankDriveSubsystem, angleTotal);
@@ -106,6 +106,13 @@ public class AutonSequentialCommands extends SequentialCommandGroup {
       this.m_intakeSubsystem.intakePull();
       }, this.m_intakeSubsystem, this.m_beltSubsystem);
     }
+    public InstantCommand intakeStop(){
+      return new InstantCommand(
+        ()->{
+      this.m_intakeSubsystem.intakeStop();
+      }, this.m_intakeSubsystem, this.m_beltSubsystem);
+    }
+
     public FollowLimelightSequence followlimelightsequence(){
      return new FollowLimelightSequence(m_tankDriveSubsystem, m_limelightVisionSubsystem);
     }
