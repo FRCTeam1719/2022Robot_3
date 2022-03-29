@@ -69,7 +69,7 @@ public class ShooterSubsystem extends SubsystemBase {
   // }
 
   public void startShooter() {
-    this.startShooter(1.0);
+    this.startShooter(m_velocity);
   }
   public void startShooter(double power){
     System.out.println("startShooter");
@@ -82,6 +82,7 @@ public class ShooterSubsystem extends SubsystemBase {
   public void stopShooter(){
     System.out.println("stopShooter");
     m_shooterMotor.set(0.0);  
+    m_velocity = 0.0;
     m_isShooterOn = false;
   }
 
