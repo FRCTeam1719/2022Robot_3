@@ -27,7 +27,7 @@ public class ShootSequence extends SequentialCommandGroup {
     // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
-     // ShootSequence1()
+      ShootSequence1()
 
      );
   }
@@ -42,8 +42,10 @@ public class ShootSequence extends SequentialCommandGroup {
      return 
      //new WaitCommand(.001)
      //.andThen(
-          ShootPID()
-     .andThen( new InstantCommand( ()-> this.m_beltSubsystem.startBelt(.5) ))
+      new InstantCommand( ()-> this.m_shooterSubsystem.startShooter() )
+      .andThen( ShootPID())
+     .andThen( new WaitCommand(3.5))
+     .andThen( new InstantCommand( ()-> this.m_beltSubsystem.startBelt(.1) ))
      .andThen( new InstantCommand( () -> this.m_shooterSubsystem.startQueueFeederWheel()))
      .andThen( new WaitCommand(2))
      .andThen( new InstantCommand( ()-> this.m_shooterSubsystem.stopShooter() ))

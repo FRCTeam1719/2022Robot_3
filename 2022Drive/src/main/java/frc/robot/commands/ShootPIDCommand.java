@@ -29,6 +29,7 @@ public class ShootPIDCommand extends PIDCommand {
         output -> {
           //TODO: this is unlikely to work - the output is not the increase.  it the value to set it to.  
           m_shooterSubsystem.increaseVelocity(output);
+          m_shooterSubsystem.startShooter();
           // Use the output here
         });
     // Use addRequirements() here to declare subsystem dependencies.
