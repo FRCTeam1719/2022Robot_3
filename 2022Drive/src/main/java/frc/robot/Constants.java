@@ -19,6 +19,8 @@ public final class Constants {
 // controlers    
     public static final int DRIVE_XBOX_CONTROLLER = 0;
     public static final int HELPER_XBOX_CONTROLLER = 1;
+    
+    public static final int GUITAR_HELPER_CONTROLLER = 2;
 // left drive
     public static final int LEFT_MOTOR_CAN1_ID = 1; // change to 1
     public static final int LEFT_MOTOR_CAN2_ID = 2; // change to 2
@@ -39,6 +41,7 @@ public final class Constants {
 
     public static final int CLIMBER_MOTOR_CANRIGHT_ID = 9; // change to 9
     public static final int CLIMBER_MOTOR_CANLEFT_ID = 10;  // change to 10
+	
     
 
     

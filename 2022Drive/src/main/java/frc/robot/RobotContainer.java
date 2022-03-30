@@ -33,6 +33,7 @@ public class RobotContainer {
   
 XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONTROLLER);
   XboxController  m_helperController = new XboxController(Constants.HELPER_XBOX_CONTROLLER);
+  GenericHID m_guitarHelperController = new GenericHID(Constants.GUITAR_HELPER_CONTROLLER);
   
   // The robot's subsystems and commands are defined here...
   private final ClimberSubsystem m_leftClimberSubsystem = new ClimberSubsystem("left", Constants.CLIMBER_MOTOR_CANLEFT_ID, true);
@@ -208,7 +209,109 @@ XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONT
 
   
     //End: Queue controls
+    //Start: Intake controls guitar
+    new JoystickButton (m_helperController, 1)
+    .whenPressed( new InstantCommand(
+      ()-> {
+        table.getEntry("intake").forceSetString("Rt-Bumper/helper pressed: intakePull");
+        this.m_intakeSubsystem.intakePull();
+      }, this.m_intakeSubsystem, this.m_beltSubsystem )
+    );
+    // new JoystickButton (m_driveController, Button.kY.value)
+    // .whenPressed( new InstantCommand(
+    //   ()-> {
+    //     this.m_limelightVisionSubsystem.turnOnLed();
+    //   }
+    // ));
+    new JoystickButton (m_helperController, 2)
+    .whenPressed( new InstantCommand( 
+      ()-> {
+        table.getEntry("intake").forceSetString("Lt-Bumper/helper pressed: intakePush");
+        this.m_intakeSubsystem.intakePush();
+      }, this.m_intakeSubsystem, this.m_beltSubsystem)
+    );
+
+    new JoystickButton(m_helperController, 3)
+    .whenPressed( new InstantCommand( 
+      ()-> {
+        table.getEntry("intake").forceSetString("B-Button/drive pressed: intakeStop");
+        this.m_intakeSubsystem.intakeStop();
+      } , this.m_intakeSubsystem, this.m_beltSubsystem)
+    );
+    //End: intake controls
+
+    //Shooter controls
+    new JoystickButton(m_helperController, 0)
+    .whenPressed(
+      
+      new ShootSequence(this.m_shooterSubsystem, this.m_beltSubsystem)
+    );
+
+  
+      
+ 
+
+    //Start: Queuing controls
+    //TODO: Refactor queue to toggle with single button
+    // new JoystickButton(m_helperController, Button.kA.value)
+    // .whenPressed(
+    //   ()-> {
+    //     table.getEntry("queuing").forceSetString("A-Button/helper pressed: startQueue");
+    //     this.m_shooterSubsystem.toggleQueue();
+    //   }
+    // );
+
+////// shhh its a secret comment you never saw this forget about it
+
+    new JoystickButton(m_helperController, 4)
+    .whenPressed( 
+      new InstantCommand( ()->{System.out.println("StartClimb, " + new Date().getTime());} )
+      .andThen(
+        new ParallelCommandGroup(
+          new PIDClimbCommand(
+            m_rightClimberSubsystem,                //subsystem
+            //Constants.CLIMBDISTANCE,                // end pos
+            new LinearSetpointTrajectory(
+              m_rightClimberSubsystem.getPosition(), 
+              Constants.CLIMBDISTANCE, 2000),
+            .5,                                     // climb speed
+            true,                                   // does it end (otherwise keep holding)
+            "right")
+          //  ,
+          // new PIDClimbCommand( 
+          //   m_leftClimberSubsystem,
+          // //Constants.CLIMBDISTANCE,                // end pos
+          // new ClimberTrajectorySetpoint(
+          //   m_leftClimberSubsystem.getPosition(), 
+          //     Constants.CLIMBDISTANCE, 2000, new Date())::getSetpoint,
+          // .5,                                     // climb speed
+          // true,                                   // does it end (otherwise keep holding)
+          // "right")
+        ))
+    );
     
+    new JoystickButton(m_helperController, 5)
+    .whenPressed(
+      //climber down
+      new ParallelCommandGroup(
+        new PIDClimbCommand(m_leftClimberSubsystem, ()->20.0 , 1, false, "left", ()->true)
+         ,
+        new PIDClimbCommand(m_rightClimberSubsystem, ()->20.0, 1, false, "right", ()->true)
+      )
+
+    );
+
+
+    // new JoystickButton(m_helperController, Button.kY.value)
+    // .whenPressed(
+    //   ()-> {
+    //     table.getEntry("queuing").forceSetString("A-Button/drive pressed: startQueue2");
+    //     this.m_shooterSubsystem.toggleQueue2();
+    //   }  
+    // );
+
+  
+    //End: Queue controls
   }
 
   /**
@@ -244,4 +347,5 @@ XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONT
     return m_autonomous;
 
   }
+  
 }
