@@ -58,15 +58,19 @@ public class AutonSequentialCommands extends SequentialCommandGroup {
     addCommands(
       // all commands will go here with commas after them.
       new InstantCommand( ()-> this.m_tankDriveSubsystem.setIdleMode(IdleMode.kBrake))
+      , shootSequence()
+      , drive(2)
+      , turn(180)
       , new InstantCommand(() -> this.m_intakeSubsystem.intakePull())
       , new WaitCommand(.5)
-      , drive(-5)   // pick up the second ball 
+      , drive(-5)
+      , new WaitCommand(.5)   // pick up the second ball 
       , new InstantCommand( ()-> this.m_intakeSubsystem.intakeStop())
-      , new WaitCommand(.5)
-      , turn(180)  // turn to shoot the second ball // do we need to drive back to the original position
-      , new WaitCommand(.5)
-      , shootSequence()  // second shot
+      ,turn(180)
+      ,drive(-7)
       , new InstantCommand(()-> this.m_tankDriveSubsystem.setIdleMode(IdleMode.kCoast))
+      , shootSequence()  // second shot
+      
     
     );
   }
