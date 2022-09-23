@@ -50,6 +50,7 @@ public class TurnAnglePidCommand extends PIDCommand {
     addRequirements(this.m_driveTrainSubsystem);
     // Configure additional PID options by calling `getController` here.
   
+    getController().setTolerance(1);
   
   }
 

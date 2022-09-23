@@ -63,6 +63,8 @@ XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONT
     , this.m_limelightVisionSubsystem
     , this.m_beltSubsystem
     , this.m_queueFeederWheelSubsystem
+    , this.m_leftClimberSubsystem
+    , this.m_rightClimberSubsystem
     );
   private edu.wpi.first.wpilibj2.command.button.Button whenPressed;
  // PIDTurnRobotCommand m_PIDTurnRobotCommand = new PIDTurnRobotCommand(this.m_tankDriveSubsystem, targetAngle);
@@ -215,7 +217,7 @@ XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONT
   }
 
 
-  private PidSettings getExtendClimberPidSettings() {
+  public static PidSettings getExtendClimberPidSettings() {
     return new PidSettings(14.0/(80.0), 0, 0);
   }
 
@@ -235,6 +237,8 @@ XboxController  m_driveController = new XboxController(Constants.DRIVE_XBOX_CONT
       , this.m_limelightVisionSubsystem
       , this.m_beltSubsystem
       , this.m_queueFeederWheelSubsystem
+      , this.m_leftClimberSubsystem
+      , this.m_rightClimberSubsystem
       );
   }
 

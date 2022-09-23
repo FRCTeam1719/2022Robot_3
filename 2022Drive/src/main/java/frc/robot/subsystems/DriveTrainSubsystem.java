@@ -33,7 +33,7 @@ public class DriveTrainSubsystem extends SubsystemBase {
   private NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private NetworkTable table = inst.getTable("DriveTrainSubsystem");
   public final static double highSpeedLimit = .65;
-  public final static double lowSpeedLimit = .50;
+  public final static double lowSpeedLimit = .85;
   private double currentSpeed = highSpeedLimit;  
 
   private IdleMode m_idleMode = IdleMode.kCoast;

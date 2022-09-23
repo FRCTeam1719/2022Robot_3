@@ -31,7 +31,7 @@ public class DriveDistancePidCommand extends PIDCommand {
   private final static double kP = 3;
   private final static double kI = 1;
   private final static double kD = 0;
-  private final static double rotationTolerance =0.1;
+  private final static double rotationTolerance =1;
 
   /** Creates a new DriveDistancePidCommand. */
   public DriveDistancePidCommand( 
@@ -47,7 +47,7 @@ public class DriveDistancePidCommand extends PIDCommand {
         // This uses the output
         output -> {
           //System.out.println("output, " + output);
-          driveTrainSubsystem.tankDrive(output, output, .3);
+          driveTrainSubsystem.tankDrive(output, output, .5);
         }); 
 
     this.m_dDriveTrainSubsystem = driveTrainSubsystem;

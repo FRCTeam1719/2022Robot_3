@@ -15,8 +15,9 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class VisionSubsystem extends SubsystemBase {
   /** Creates a new VisionSubsystem. */
   private UsbCamera m_usbCameraBottom;
-  private UsbCamera m_usbCameraTop;
-  private UsbCamera m_usbCameraMiddle;
+  //private UsbCamera m_usbCameraTop;
+  //private UsbCamera m_usbCameraMiddle;
+  
   private NetworkTableInstance inst = NetworkTableInstance.getDefault();
   private NetworkTable table = inst.getTable("visionSubsytem");
     
@@ -24,8 +25,8 @@ public class VisionSubsystem extends SubsystemBase {
   public VisionSubsystem() {
     table.getEntry("lastLog").forceSetString("init");
     m_usbCameraBottom = CameraServer.startAutomaticCapture(0);
-    m_usbCameraBottom = CameraServer.startAutomaticCapture(1);
-    m_usbCameraMiddle = CameraServer.startAutomaticCapture(2);
+    //m_usbCameraBottom = CameraServer.startAutomaticCapture(1);
+    //m_usbCameraMiddle = CameraServer.startAutomaticCapture(2);
     
     table.getEntry("lastLog").forceSetString("init2");
   }
