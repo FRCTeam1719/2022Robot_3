@@ -85,22 +85,22 @@ public class RobotContainer {
     );
     this.m_MecanumDriveSubsystem.setDefaultCommand(DriveMode);
     new JoystickButton(m_helperController, Button.kB.value)
-        .whenPressed(() -> {
+        .onTrue(new InstantCommand(() -> {
           System.out.println(this.limelight.getDistance());
           new MecanumPIDCommand(this.limelight, this.m_MecanumDriveSubsystem);
-        });
+        }));
     new JoystickButton(m_driveController, Button.kLeftBumper.value)
-        .whenPressed(() -> {
+        .onTrue(new InstantCommand(() -> {
           this.m_MecanumDriveSubsystem.setMode(IdleMode.kCoast);
-        });
+        }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
-        .whenPressed(() -> {
+        .onTrue(new InstantCommand(() -> {
           this.m_MecanumDriveSubsystem.setMode(IdleMode.kBrake);
-        });
+        }));
     new JoystickButton(m_driveController, Button.kY.value)
-        .whenPressed(() -> {
+        .onTrue(new InstantCommand(() -> {
           this.m_Break.ToggleBreak();
-        });
+        }));
   }
 
   public Command getAutonomousCommand() {
