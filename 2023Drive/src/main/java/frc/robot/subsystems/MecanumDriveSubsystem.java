@@ -44,10 +44,10 @@ public class MecanumDriveSubsystem extends SubsystemBase {
 
   public void setIdleMode(IdleMode idleMode) {
     this.m_idleMode = idleMode;
-    m_leftMotorFront.setIdleMode(this.m_idleMode);
-    m_leftMotorBack.setIdleMode(this.m_idleMode);
-    m_rightMotorFront.setIdleMode(this.m_idleMode);
-    m_rightMotorBack.setIdleMode(this.m_idleMode);
+m_leftMotorFront.setIdleMode(this.m_idleMode);
+   m_leftMotorBack.setIdleMode(this.m_idleMode);
+   m_rightMotorFront.setIdleMode(this.m_idleMode);
+   m_rightMotorBack.setIdleMode(this.m_idleMode);
 
   }
 
