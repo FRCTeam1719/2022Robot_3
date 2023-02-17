@@ -54,6 +54,7 @@ public class RobotContainer {
   private final BreakSubsystem m_Break = new BreakSubsystem();
 // private final ArmSubsystem m_Arm = new ArmSubsystem();
   private final LimelightSubsystem limelight = new LimelightSubsystem();
+  private final TestArmSubsystem testarm = new TestArmSubsystem();
   private edu.wpi.first.wpilibj2.command.button.Trigger whenPressed;
 
   /**
@@ -93,6 +94,10 @@ public class RobotContainer {
     new JoystickButton(m_driveController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
           this.m_MecanumDriveSubsystem.setMode(IdleMode.kCoast);
+        }));
+    new JoystickButton(m_helperController, Button.kLeftBumper.value)
+        .onTrue(new InstantCommand(() -> {
+          this.testarm.turnArmTest(0.1);;
         }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
