@@ -96,18 +96,22 @@ public class RobotContainer {
     new JoystickButton(m_driveController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
           this.m_MecanumDriveSubsystem.setMode(IdleMode.kCoast);
+          this.led.LBLUE();
         }));
     new JoystickButton(m_helperController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
           this.testarm.turnArmTest(0.1);;
+          this.led.RAINBOW();
         }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
           this.m_MecanumDriveSubsystem.setMode(IdleMode.kBrake);
+          this.led.YELLOW();
         }));
     new JoystickButton(m_driveController, Button.kY.value)
         .onTrue(new InstantCommand(() -> {
           this.m_Break.ToggleBreak();
+          this.led.RED();
         }));
     // new JoystickButton(m_driveController, Button.kA.value)
     //     .onTrue(new InstantCommand(() -> {

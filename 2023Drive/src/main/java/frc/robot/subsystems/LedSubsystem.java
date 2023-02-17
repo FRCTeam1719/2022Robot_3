@@ -37,7 +37,7 @@ public class LedSubsystem extends SubsystemBase {
 
     private AddressableLED led;
     private AddressableLEDBuffer ledBuffer;
-
+int move;
     public LedSubsystem() {
         led = new AddressableLED(0);
         ledBuffer = new AddressableLEDBuffer(60);
@@ -50,15 +50,44 @@ public class LedSubsystem extends SubsystemBase {
         for (var i = 0; i < ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
             ledBuffer.setRGB(i, 255, 87, 51);
-         }
-         
+         }}
+    public void LBLUE(){
+        for (var i = 0; i < ledBuffer.getLength(); i++) {
+            // Sets the specified LED to the RGB values for red
+            ledBuffer.setRGB(i, 3, 202, 252);
+         }}
+    public void YELLOW(){
+        for (var i = 0; i < ledBuffer.getLength(); i++) {
+            // Sets the specified LED to the RGB values for red
+            ledBuffer.setRGB(i, 252, 252, 3);
+         }}
+    public void RED(){
+        for (var i = 0; i < ledBuffer.getLength(); i++) {
+            // Sets the specified LED to the RGB values for red
+            ledBuffer.setRGB(i, 250, 0, 0);
+         }}
+    public void RAINBOW() {
+    // For every pixel
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      // Calculate the hue - hue is easier for rainbows because the color
+      // shape is a circle so only one value needs to precess
+    
+      // Set the value
+      ledBuffer.setHSV(i,( i + move) % 180, 255, 128);
     }
+    // Increase by to make the rainbow "move"
+
+  }
+
+         
+    
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
 
 
         led.setData(ledBuffer);
+        move+=1;
     }
 
 }
