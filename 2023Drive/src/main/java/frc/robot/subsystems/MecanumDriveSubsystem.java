@@ -4,11 +4,13 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SPI;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.kauailabs.navx.frc.AHRS;
@@ -39,6 +41,7 @@ public class MecanumDriveSubsystem extends SubsystemBase {
 
   private IdleMode m_idleMode = IdleMode.kBrake;
   public boolean doLog = false;
+  private AHRS gyro;
 
   /** Creates a new DriveTrain. */
   public MecanumDriveSubsystem() {
@@ -155,8 +158,8 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
 
     // if(doLog) System.out.println("drive-l-r, " + leftMotorValue +", " +
     // rightMotorValue);
-
-    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX);
+     Rotation2d gyroAngle = new Rotation2d(gyro.getAngle());
+    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX, gyroAngle);
     // m_myRobot.driveCartesian(0.1, 0,0);
   }
 
