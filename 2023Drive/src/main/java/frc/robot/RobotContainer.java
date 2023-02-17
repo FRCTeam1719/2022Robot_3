@@ -52,6 +52,7 @@ public class RobotContainer {
   // DriveTrainSubsystem();;
   private final GrabberSubsystem Grabber = new GrabberSubsystem();
   private final BreakSubsystem m_Break = new BreakSubsystem();
+  private final LedSubsystem led = new LedSubsystem();
 // private final ArmSubsystem m_Arm = new ArmSubsystem();
   private final LimelightSubsystem limelight = new LimelightSubsystem();
   private edu.wpi.first.wpilibj2.command.button.Trigger whenPressed;
@@ -89,6 +90,7 @@ public class RobotContainer {
         .onTrue(new InstantCommand(() -> {
           System.out.println(this.limelight.getDistance());
           new MecanumPIDCommand(this.limelight, this.m_MecanumDriveSubsystem);
+          this.led.LIME();
         }));
     new JoystickButton(m_driveController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
