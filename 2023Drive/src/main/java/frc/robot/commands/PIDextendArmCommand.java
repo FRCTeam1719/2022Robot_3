@@ -24,6 +24,7 @@ public class PIDextendArmCommand extends PIDCommand {
         () -> target,
         // This uses the output
         output -> {
+          
           armSubsystem.extend(output);
         });
     // Use addRequirements() here to declare subsystem dependencies.

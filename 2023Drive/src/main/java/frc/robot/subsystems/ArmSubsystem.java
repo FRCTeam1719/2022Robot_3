@@ -17,6 +17,7 @@ public class ArmSubsystem extends SubsystemBase {
 
   private TimeOfFlight armDistance;
   private CANSparkMax armExtend;
+  private boolean extendOverride;
   public ArmSubsystem() {
     armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
     armExtend = new CANSparkMax(6, MotorType.kBrushless);
@@ -30,10 +31,29 @@ public class ArmSubsystem extends SubsystemBase {
   public double getArmDistance() {
     double distance = armDistance.getRange();
     System.out.println(distance);
+    if (distance > 1699){
+      return 2000;
+    }
     return distance;
    }
   public void extend(double extendSpeed){
+    boolean lessThanMax = this.getArmDistance() < Constants.MAX_DISTANCE;
+    boolean moreThanBegin = this.getArmDistance() > Constants.ARM_BEGIN;
+    boolean retracting = extendSpeed < 0;
+    if (this.extendOverride){
+      armExtend.set(extendSpeed);
+    }
+    else if (lessThanMax && moreThanBegin){
     armExtend.set(extendSpeed);
+    } else if (retracting && moreThanBegin ||  !retracting && lessThanMax){
+      armExtend.set(extendSpeed);
+    } 
+    System.out.println("lessthatnmax"+lessThanMax);
+    System.out.println("retrancting "+retracting);
+    
+  }
+  public void OverrideExtend(boolean t){
+    extendOverride = t;
   }
    
 }
