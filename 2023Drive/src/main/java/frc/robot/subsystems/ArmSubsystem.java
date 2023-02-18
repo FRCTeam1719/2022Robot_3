@@ -50,7 +50,7 @@ public class ArmSubsystem extends SubsystemBase {
     } 
     System.out.println("lessthatnmax"+lessThanMax);
     System.out.println("retrancting "+retracting);
-    
+    System.out.println("retranctingspeed "+extendSpeed);
   }
   public void OverrideExtend(boolean t){
     extendOverride = t;

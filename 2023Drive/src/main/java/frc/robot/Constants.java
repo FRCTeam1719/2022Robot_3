@@ -37,6 +37,7 @@ public static final double Zero_for_now = 0; // change to 0
 public static final double SPEED_REGULATOR = 0.65;
 public static final double DEAD_ZONE_VALUE = 0.03;
 public static final double TURN_REGULATOR = 0.45;
+public static final double ARMSPEED_SCALER = 0.45;
 
 // Time of Flight 
 public static final int TIMEOFFLIGHT_ID = 0;
@@ -47,6 +48,7 @@ public static final double MAX_DISTANCE = 1699;
 public static final double ARM_BEGIN = 800;
 public static final double ARM_MID = 1200;
 public static final double ARM_LONG = 1600;
+
 
 
 }

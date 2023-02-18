@@ -83,10 +83,14 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
 
     MecanumDriveCommand DriveMode = new MecanumDriveCommand(
         this.m_MecanumDriveSubsystem, m_driveController::getLeftY, m_driveController::getLeftX,
-        m_driveController::getRightX
+        m_driveController::getRightX);
 
-    );
+        ManualArmCommands ManualMode = new ManualArmCommands(
+          this.m_Arm, m_helperController::getLeftY,m_helperController::getRightY);
+
+    
     this.m_MecanumDriveSubsystem.setDefaultCommand(DriveMode);
+    this.m_Arm.setDefaultCommand(ManualMode);
     new JoystickButton(m_helperController, Button.kB.value)
         .onTrue(new InstantCommand(() -> {
           System.out.println(this.limelight.getDistance());
