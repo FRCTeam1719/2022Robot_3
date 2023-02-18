@@ -53,7 +53,7 @@ public class RobotContainer {
   private final GrabberSubsystem Grabber = new GrabberSubsystem();
   private final BreakSubsystem m_Break = new BreakSubsystem();
   private final LedSubsystem led = new LedSubsystem();
-// private final ArmSubsystem m_Arm = new ArmSubsystem();
+private final ArmSubsystem m_Arm = new ArmSubsystem();
   private final LimelightSubsystem limelight = new LimelightSubsystem();
   private final TestArmSubsystem testarm = new TestArmSubsystem();
   private edu.wpi.first.wpilibj2.command.button.Trigger whenPressed;
@@ -112,10 +112,10 @@ public class RobotContainer {
           this.m_Break.ToggleBreak();
           this.led.RED();
         }));
-    // new JoystickButton(m_driveController, Button.kA.value)
-    //     .onTrue(new InstantCommand(() -> {
-    //       this.m_Arm.getArmDistance();
-    //     }));
+    new JoystickButton(m_driveController, Button.kA.value)
+        .onTrue(new InstantCommand(() -> {
+        this.m_Arm.getArmDistance();
+        }));
   }
 
   public Command getAutonomousCommand() {
