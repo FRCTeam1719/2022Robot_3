@@ -122,13 +122,17 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         }));
   
   new JoystickButton(m_helperController, Button.kY.value)
-        .onTrue(new InstantCommand(() -> {
-          this.testarm.turnArmTest(0.1);
-        }));
+        .onTrue(
+          new PIDextendArmCommand(1200,m_Arm)
+        );
+        new JoystickButton(m_helperController, Button.kX.value)
+        .onTrue(
+          new PIDextendArmCommand(0,m_Arm)
+        );
         new JoystickButton(m_helperController, Button.kA.value)
-        .onTrue(new InstantCommand(() -> {
-          this.testarm.turnArmTest(0.1);
-        }));
+        .onTrue(
+          new PIDextendArmCommand(1600,m_Arm)
+        );
       }
   public Command getAutonomousCommand() {
     return null;
