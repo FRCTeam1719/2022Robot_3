@@ -115,7 +115,7 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         }));
     new JoystickButton(m_driveController, Button.kA.value)
         .onTrue(new InstantCommand(() -> {
-          this.m_Arm.getArmDistance();
+        this.m_Arm.getArmDistance();
         }));
   }
 
