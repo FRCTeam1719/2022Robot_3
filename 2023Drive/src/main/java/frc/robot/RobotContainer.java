@@ -100,7 +100,11 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         }));
     new JoystickButton(m_helperController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
-          this.testarm.turnArmTest(0.1);;
+          this.testarm.turnArmTest(0.1);
+        }));
+    new JoystickButton(m_helperController, Button.kRightBumper.value)
+        .onTrue(new InstantCommand(() -> {
+          this.testarm.turnArmTest(-0.1);
         }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
@@ -116,8 +120,16 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         .onTrue(new InstantCommand(() -> {
         this.m_Arm.getArmDistance();
         }));
-  }
-
+  
+  new JoystickButton(m_helperController, Button.kY.value)
+        .onTrue(new InstantCommand(() -> {
+          this.testarm.turnArmTest(0.1);
+        }));
+        new JoystickButton(m_helperController, Button.kA.value)
+        .onTrue(new InstantCommand(() -> {
+          this.testarm.turnArmTest(0.1);
+        }));
+      }
   public Command getAutonomousCommand() {
     return null;
   }

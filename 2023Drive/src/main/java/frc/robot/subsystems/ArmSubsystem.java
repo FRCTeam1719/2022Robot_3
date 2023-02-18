@@ -8,15 +8,18 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.lang.AutoCloseable;
 import frc.robot.Constants;
 import com.playingwithfusion.TimeOfFlight;
+import com.revrobotics.CANSparkMax;
+import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
 
   private TimeOfFlight armDistance;
-
+  private CANSparkMax armExtend;
   public ArmSubsystem() {
     armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
+    armExtend = new CANSparkMax(6, MotorType.kBrushless);
   }
 
   @Override
@@ -29,4 +32,8 @@ public class ArmSubsystem extends SubsystemBase {
     System.out.println(distance);
     return distance;
    }
+  public void extend(double extendSpeed){
+    armExtend.set(extendSpeed);
+  }
+   
 }
