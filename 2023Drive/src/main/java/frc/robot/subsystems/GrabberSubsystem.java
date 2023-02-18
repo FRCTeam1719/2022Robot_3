@@ -3,7 +3,7 @@
 // the WPILib BSD license file in the root directory of this project.
 
 package frc.robot.subsystems; 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -11,14 +11,14 @@ public class GrabberSubsystem extends SubsystemBase {
   /** Creates a new GrabberSubsystem. */
   public GrabberSubsystem() {}
 
-     private DoubleSolenoid Grabswitch = new DoubleSolenoid(PneumaticsModuleType.REVPH, 0, 1);
+     private Solenoid Grabswitch = new Solenoid(PneumaticsModuleType.REVPH, 0);
 
      public void Grab(int setting){
-      Grabswitch.set(DoubleSolenoid.Value.kForward);
+      Grabswitch.set(true);
        
      }
      public void Ungrab(int setting){
-      Grabswitch.set(DoubleSolenoid.Value.kReverse);
+      Grabswitch.set(false);
        
      }
  

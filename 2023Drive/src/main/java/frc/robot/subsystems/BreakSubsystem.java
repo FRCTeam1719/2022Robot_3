@@ -5,35 +5,35 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BreakSubsystem extends SubsystemBase {
   /** Creates a new BreakSubsystem. */
-  private DoubleSolenoid Breakswitch = new DoubleSolenoid(PneumaticsModuleType.REVPH, 2, 3);
-  private int breakState = 0;
+  private Solenoid Breakswitch = new Solenoid(PneumaticsModuleType.REVPH, 2);
+  private boolean breakState = false;
 
   public BreakSubsystem() {
-    Breakswitch.set(DoubleSolenoid.Value.kReverse);
+    Breakswitch.set(false);
   }
   
   public void ToggleBreak() {
-    breakState = breakState == 0 ? 1 : 0;
-    if (breakState == 0) {
+    breakState = breakState == false ? true : false;
+    if (breakState == false) {
       Unbreak();
-    } else if (breakState == 1) {
+    } else if (breakState == true) {
       Break();
     }
   }
 
   public void Break() {
-    Breakswitch.set(DoubleSolenoid.Value.kForward);
+    Breakswitch.set(true);
 
   }
 
   public void Unbreak() {
-    Breakswitch.set(DoubleSolenoid.Value.kReverse);
+    Breakswitch.set(false);
 
   }
 
