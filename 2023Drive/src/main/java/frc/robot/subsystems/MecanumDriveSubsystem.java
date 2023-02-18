@@ -63,7 +63,7 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
 
   private void init() {
 
-    AHRS gyro = new AHRS(SPI.Port.kMXP);
+    gyro = new AHRS(SPI.Port.kMXP);
     
     m_leftMotorFront = new CANSparkMax(Constants.LEFT_MOTOR_CAN1_ID, MotorType.kBrushless);
     m_leftMotorBack = new CANSparkMax(Constants.LEFT_MOTOR_CAN2_ID, MotorType.kBrushless);
@@ -158,7 +158,7 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
 
     // if(doLog) System.out.println("drive-l-r, " + leftMotorValue +", " +
     // rightMotorValue);
-     Rotation2d gyroAngle = new Rotation2d(gyro.getAngle());
+     Rotation2d gyroAngle = new Rotation2d(this.gyro.getAngle());
     m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX, gyroAngle);
     // m_myRobot.driveCartesian(0.1, 0,0);
   }

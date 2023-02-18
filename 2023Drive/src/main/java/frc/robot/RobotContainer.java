@@ -101,7 +101,6 @@ public class RobotContainer {
     new JoystickButton(m_helperController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
           this.testarm.turnArmTest(0.1);;
-          this.led.RAINBOW();
         }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
