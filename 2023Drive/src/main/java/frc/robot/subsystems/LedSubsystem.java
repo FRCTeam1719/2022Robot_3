@@ -50,7 +50,7 @@ int move;
         for (var i = 0; i < ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
             ledBuffer.setRGB(i, 255, 87, 51);
-            System.out.println(i);
+           // System.out.println(i);
          }}
     public void LBLUE(){
         for (var i = 0; i < ledBuffer.getLength(); i++) {
