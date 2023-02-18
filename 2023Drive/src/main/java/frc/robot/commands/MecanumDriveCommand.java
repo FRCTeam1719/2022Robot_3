@@ -54,7 +54,7 @@ public class MecanumDriveCommand extends CommandBase {
     
     this.m_mecanumDriveSubsystem.MecanumDrive(this.m_getLeftY.getAsDouble(), this.m_getLeftX.getAsDouble(), this.m_getRightX.getAsDouble());
   }
-
+  
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {

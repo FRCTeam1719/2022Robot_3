@@ -84,7 +84,9 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
     this.setIdleMode(IdleMode.kCoast);
     m_myRobot = new MecanumDrive(m_leftMotorFront, m_leftMotorBack, m_rightMotorFront, m_rightMotorBack);
   }
-
+  public double getPitch(){
+    return this.gyro.getPitch();
+  }
   public void setSpeed(double speed) {
     this.currentSpeed = speed;
   }
