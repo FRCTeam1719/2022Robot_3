@@ -7,23 +7,22 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.MecanumDriveSubsystem;
-
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class PIDforwardCommand extends PIDCommand {
- // Creates a new PIDforwardCommand. 
-  public PIDforwardCommand(MecanumDriveSubsystem DriveSubsystem, double target) {
+public class PIDsidewaysCommand extends PIDCommand {
+  /** Creates a new PIDSidewaysCommand. */
+  public PIDsidewaysCommand(MecanumDriveSubsystem DriveSubsystem, double target) {
     super(
         // The controller that the command will use
         new PIDController(0.2, 0.2, 0.2),
         // This should return the measurement
-        () -> DriveSubsystem.getGyroDispY(),
+        () -> DriveSubsystem.getGyroDispX(),
         // This should return the setpoint (can also be a constant)
         () -> target,
         // This uses the output
         output -> {
-          DriveSubsystem.MecanumDrive(output, 0, 0);
+          DriveSubsystem.MecanumDrive(0, output, 0);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.

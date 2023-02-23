@@ -5,6 +5,9 @@
 package frc.robot.commands;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,6 +22,8 @@ public class AutonSequentialCommands extends SequentialCommandGroup {
   private MecanumDriveSubsystem DriveSubsystem;
 private GrabberSubsystem grabberSubsystem;
 private ArmSubsystem armSubsystem;
+private Rotation2d dAngle;
+private double dispY;
   /** Creates a new AutonSequentialCommands. */
   public AutonSequentialCommands(MecanumDriveSubsystem DriveSubsystem, GrabberSubsystem grabberSubsystem, ArmSubsystem armSubsystem) {
 
@@ -55,6 +60,11 @@ private ArmSubsystem armSubsystem;
   }
   private PIDbalancerCommand balance(){
     return new PIDbalancerCommand(DriveSubsystem);
+  }
+  private PIDforwardCommand forward(double distance){
+    dispY+=distance;
+    
+    return new PIDforwardCommand(DriveSubsystem, dispY);
   }
 }
 
