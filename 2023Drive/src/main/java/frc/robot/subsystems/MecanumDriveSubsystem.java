@@ -161,7 +161,7 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
     // if(doLog) System.out.println("drive-l-r, " + leftMotorValue +", " +
     // rightMotorValue);
      Rotation2d gyroAngle = new Rotation2d(this.gyro.getAngle());
-    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX, gyroAngle);
+    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX/*  , gyroAngle*/);
     // m_myRobot.driveCartesian(0.1, 0,0);
   }
 
@@ -172,7 +172,7 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
   private double getLeftBackPosition() {
     return this.m_leftBackEncoder.getPosition();
   }
-
+  
   private double getRightFrontPosition() {
     return this.m_rightFrontEncoder.getPosition();
   }

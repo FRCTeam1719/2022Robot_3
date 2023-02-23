@@ -13,11 +13,14 @@ public class GrabberSubsystem extends SubsystemBase {
 
      private Solenoid Grabswitch = new Solenoid(PneumaticsModuleType.REVPH, 0);
 
-     public void Grab(int setting){
+     public void Grab(){
       Grabswitch.set(true);
        
      }
-     public void Ungrab(int setting){
+     public void Grab(Boolean setting){
+      Grabswitch.set(setting);
+     }
+     public void Ungrab(){
       Grabswitch.set(false);
        
      }

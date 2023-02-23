@@ -55,7 +55,7 @@ public class RobotContainer {
   private final LedSubsystem led = new LedSubsystem();
 private final ArmSubsystem m_Arm = new ArmSubsystem();
   private final LimelightSubsystem limelight = new LimelightSubsystem();
-  private final TestArmSubsystem testarm = new TestArmSubsystem();
+ // private final TestArmSubsystem testarm = new TestArmSubsystem();
   private edu.wpi.first.wpilibj2.command.button.Trigger whenPressed;
 
   /**
@@ -104,11 +104,11 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         }));
     new JoystickButton(m_helperController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
-          this.testarm.turnArmTest(0.1);
+       //   this.testarm.turnArmTest(0.1);
         }));
     new JoystickButton(m_helperController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
-          this.testarm.turnArmTest(-0.1);
+       //   this.testarm.turnArmTest(-0.1);
         }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
