@@ -168,6 +168,8 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
 public double getGyroDispY(){
   return this.gyro.getDisplacementY();
 }
+//I read this, and maybe the encoders will be more accurate.
+// Returns the displacement (in meters) of the Y axis since resetDisplacement() was last invoked [Experimental]. NOTE: This feature is experimental. Displacement measures rely on double-integration of acceleration values from MEMS accelerometers which yield "noisy" values. The resulting displacement are not known to be very accurate, and the amount of error increases quickly as time progresses.
 public double getGyroDispX(){
   return this.gyro.getDisplacementX();
 }
