@@ -149,6 +149,11 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
       
       new JoystickButton(m_helperController, Button.kRightStick.value)
         .whileFalse(new InstantCommand(()->{this.m_Arm.OverrideExtend(false);}));
+        new JoystickButton(m_helperController, Button.kLeftStick.value)
+        .whileTrue(new InstantCommand(()->{this.m_Arm.OverrideRotate(true);}));
+      
+      new JoystickButton(m_helperController, Button.kLeftStick.value)
+        .whileFalse(new InstantCommand(()->{this.m_Arm.OverrideRotate(false);}));
       }
   public Command getAutonomousCommand() {
     return null;
