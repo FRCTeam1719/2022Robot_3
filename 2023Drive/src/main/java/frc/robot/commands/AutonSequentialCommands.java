@@ -5,6 +5,8 @@
 package frc.robot.commands;
 import frc.robot.commands.*;
 import frc.robot.subsystems.*;
+import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -19,16 +21,19 @@ public class AutonSequentialCommands extends SequentialCommandGroup {
   private MecanumDriveSubsystem DriveSubsystem;
 private GrabberSubsystem grabberSubsystem;
 private ArmSubsystem armSubsystem;
+private Rotation2d dAngle;
+private double dispY=0;
+private double dispX=0;
   /** Creates a new AutonSequentialCommands. */
   public AutonSequentialCommands(MecanumDriveSubsystem DriveSubsystem, GrabberSubsystem grabberSubsystem, ArmSubsystem armSubsystem) {
 
     
-    testAuton();
+    testAutongrab();
 
      
   }
   
-  private void testAuton(){
+  private void testAutongrab(){
       // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
@@ -43,6 +48,21 @@ private ArmSubsystem armSubsystem;
 
   );
   }
+  private void testAutondrive(){
+    // Add your commands in the addCommands() call, e.g.
+  // addCommands(new FooCommand(), new BarCommand());
+  addCommands(
+  
+forward(3), 
+right(6) 
+
+
+
+
+// ...
+
+);
+}
   private InstantCommand isGrab(boolean state){
     return new InstantCommand(() ->{ grabberSubsystem.Grab(state);});
   }
@@ -55,6 +75,16 @@ private ArmSubsystem armSubsystem;
   }
   private PIDbalancerCommand balance(){
     return new PIDbalancerCommand(DriveSubsystem);
+  }
+  private PIDforwardCommand forward(double distance){
+    dispY+=distance;
+    
+    return new PIDforwardCommand(DriveSubsystem, dispY);
+  }
+  private PIDsidewaysCommand right(double distance){
+    dispX+=distance;
+    
+    return new PIDsidewaysCommand(DriveSubsystem, dispY);
   }
 }
 

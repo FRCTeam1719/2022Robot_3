@@ -5,6 +5,7 @@
 package frc.robot.subsystems;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.SPI;
@@ -160,10 +161,18 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
 
     // if(doLog) System.out.println("drive-l-r, " + leftMotorValue +", " +
     // rightMotorValue);
-     Rotation2d gyroAngle = new Rotation2d(this.gyro.getAngle());
-    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX/*  , gyroAngle*/);
+     Rotation2d gyroAngle = this.gyro.getRotation2d();
+    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX  , gyroAngle);
     // m_myRobot.driveCartesian(0.1, 0,0);
   }
+public double getGyroDispY(){
+  return this.gyro.getDisplacementY();
+}
+//I read this, and maybe the encoders will be more accurate.
+// Returns the displacement (in meters) of the Y axis since resetDisplacement() was last invoked [Experimental]. NOTE: This feature is experimental. Displacement measures rely on double-integration of acceleration values from MEMS accelerometers which yield "noisy" values. The resulting displacement are not known to be very accurate, and the amount of error increases quickly as time progresses.
+public double getGyroDispX(){
+  return this.gyro.getDisplacementX();
+}
 
   private double getLeftFrontPosition() {
     return this.m_leftFrontEncoder.getPosition();
@@ -187,4 +196,5 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
     this.m_rightFrontEncoder.setPosition(0);
     this.m_rightBackEncoder.setPosition(0);
   }
+
 }
