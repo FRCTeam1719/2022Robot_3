@@ -23,6 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armExtend;
   private CANSparkMax armRotate;
   private double angle;
+  private boolean rotateOverride;
 
   public ArmSubsystem() {
     this.armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
@@ -66,25 +67,23 @@ public class ArmSubsystem extends SubsystemBase {
     System.out.println("retranctingspeed "+extendSpeed);
   }
   public void OverrideExtend(boolean t){
-    extendOverride = t;
+    this.extendOverride = t;
   }
-  public boolean checkRotateDistance() {
-    this.angle = (Math.abs(this.ArmEncoder.getPosition())) / 65.0;
-    if (this.angle < 90) {
-      // TODO: this should be higher then 90 preferably. the starting position needs to be on here
-      return true;
-    }
-    return false;
-  }
+
   public void rotateBack() {
-    if(checkRotateDistance()) {
+    this.angle = (this.ArmEncoder.getPosition()) / 65.0;
+    if(this.angle > -90 || this.rotateOverride) {
       this.armRotate.set(-0.1);
     }
   }
   public void rotateForward() {
-    if(checkRotateDistance()) {
+    this.angle = (this.ArmEncoder.getPosition()) / 65.0;
+    if(this.angle < 90 || this.rotateOverride) {
       this.armRotate.set(0.1);
     }
+  }
+  public void OverrideRotate(boolean t){
+    rotateOverride = t;
   }
    
 }
