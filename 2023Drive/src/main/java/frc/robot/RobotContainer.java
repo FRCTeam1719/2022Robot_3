@@ -124,8 +124,15 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         .onTrue(new InstantCommand(() -> {
         this.m_Arm.getArmDistance();
         }));
-  
-  new JoystickButton(m_helperController, Button.kY.value)
+    new JoystickButton(m_helperController, Button.kLeftBumper.value)
+        .onTrue(new InstantCommand(() -> {
+        this.m_Arm.rotateBack();
+        }));    
+    new JoystickButton(m_helperController, Button.kRightBumper.value)
+        .onTrue(new InstantCommand(() -> {
+        this.m_Arm.rotateForward();
+        }));    
+    new JoystickButton(m_helperController, Button.kY.value)
         .onTrue(
           new PIDextendArmCommand(Constants.ARM_MID,m_Arm)
         );
