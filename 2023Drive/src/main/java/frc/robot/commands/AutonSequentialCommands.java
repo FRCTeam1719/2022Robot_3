@@ -84,7 +84,7 @@ right(6)
   private PIDsidewaysCommand right(double distance){
     dispX+=distance;
     
-    return new PIDsidewaysCommand(DriveSubsystem, dispY);
+    return new PIDsidewaysCommand(DriveSubsystem, dispX);
   }
 }
 

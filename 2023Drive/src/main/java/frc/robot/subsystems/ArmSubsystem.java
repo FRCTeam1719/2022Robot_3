@@ -30,6 +30,8 @@ public class ArmSubsystem extends SubsystemBase {
     this.armRotate = new CANSparkMax(5, MotorType.kBrushless);
 
     this.angle = 0.0; // Zero angle
+    // TODO: wouldn't O.0 be if the arm was pointed straight up? I don't think that's a good idea
+
     this.ArmEncoder.setPosition(0); // Zero encoders
     this.ArmEncoder = this.armRotate.getEncoder();
   }
@@ -69,18 +71,19 @@ public class ArmSubsystem extends SubsystemBase {
   public boolean checkRotateDistance() {
     this.angle = (Math.abs(this.ArmEncoder.getPosition())) / 65.0;
     if (this.angle < 90) {
+      // TODO: this should be higher then 90 preferably. the starting position needs to be on here
       return true;
     }
     return false;
   }
   public void rotateBack() {
     if(checkRotateDistance()) {
-      this.armRotate.set(-1);
+      this.armRotate.set(-0.1);
     }
   }
   public void rotateForward() {
     if(checkRotateDistance()) {
-      this.armRotate.set(1);
+      this.armRotate.set(0.1);
     }
   }
    
