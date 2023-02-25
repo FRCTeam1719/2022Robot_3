@@ -49,7 +49,11 @@ public static final double ARM_BEGIN = 800;
 public static final double ARM_MID = 1200;
 public static final double ARM_LONG = 1600;
 
+// Movement PID's 
 
+public static final double DRIVEkp = 0.2;
+public static final double DRIVEki = 0.2;
+public static final double DRIVEkd = 0.2;
 
 }
  

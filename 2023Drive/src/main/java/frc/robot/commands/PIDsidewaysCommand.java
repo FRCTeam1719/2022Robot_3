@@ -6,6 +6,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
+import frc.robot.Constants;
 import frc.robot.subsystems.MecanumDriveSubsystem;
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -15,7 +16,7 @@ public class PIDsidewaysCommand extends PIDCommand {
   public PIDsidewaysCommand(MecanumDriveSubsystem DriveSubsystem, double target) {
     super(
         // The controller that the command will use
-        new PIDController(0.2, 0.2, 0.2),
+        new PIDController( Constants.DRIVEkp, Constants.DRIVEki, Constants.DRIVEkd),
         // This should return the measurement
         () -> DriveSubsystem.getGyroDispX(),
         // This should return the setpoint (can also be a constant)

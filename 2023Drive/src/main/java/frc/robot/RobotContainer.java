@@ -104,11 +104,11 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         }));
     new JoystickButton(m_helperController, Button.kLeftBumper.value)
         .onTrue(new InstantCommand(() -> {
-       //   this.testarm.turnArmTest(0.1);
+          this.Grabber.Grab(true);
         }));
     new JoystickButton(m_helperController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
-       //   this.testarm.turnArmTest(-0.1);
+          this.Grabber.Grab(false);
         }));
     new JoystickButton(m_driveController, Button.kRightBumper.value)
         .onTrue(new InstantCommand(() -> {
@@ -124,8 +124,15 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         .onTrue(new InstantCommand(() -> {
         this.m_Arm.getArmDistance();
         }));
-  
-  new JoystickButton(m_helperController, Button.kY.value)
+    new JoystickButton(m_helperController, Button.kLeftBumper.value)
+        .onTrue(new InstantCommand(() -> {
+        this.m_Arm.rotateBack();
+        }));    
+    new JoystickButton(m_helperController, Button.kRightBumper.value)
+        .onTrue(new InstantCommand(() -> {
+        this.m_Arm.rotateForward();
+        }));    
+    new JoystickButton(m_helperController, Button.kY.value)
         .onTrue(
           new PIDextendArmCommand(Constants.ARM_MID,m_Arm)
         );
@@ -137,6 +144,11 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         .onTrue(
           new PIDextendArmCommand(Constants.ARM_LONG,m_Arm)
         );
+        new JoystickButton(m_helperController, Button.kRightStick.value)
+        .whileTrue(new InstantCommand(()->{this.m_Arm.OverrideExtend(true);}));
+      
+      new JoystickButton(m_helperController, Button.kRightStick.value)
+        .whileFalse(new InstantCommand(()->{this.m_Arm.OverrideExtend(false);}));
       }
   public Command getAutonomousCommand() {
     return null;

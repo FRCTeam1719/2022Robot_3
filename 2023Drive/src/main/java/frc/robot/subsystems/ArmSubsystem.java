@@ -10,19 +10,30 @@ import frc.robot.Constants;
 import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
+import com.revrobotics.RelativeEncoder;
 
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
 
   private TimeOfFlight armDistance;
-  private CANSparkMax armExtend;
   private boolean extendOverride;
+
+  private RelativeEncoder ArmEncoder;
+  private CANSparkMax armExtend;
   private CANSparkMax armRotate;
+  private double angle;
+
   public ArmSubsystem() {
-    armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
-    armExtend = new CANSparkMax(6, MotorType.kBrushless);
-    armRotate = new CANSparkMax(5, MotorType.kBrushless);
+    this.armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
+    this.armExtend = new CANSparkMax(6, MotorType.kBrushless);
+    this.armRotate = new CANSparkMax(5, MotorType.kBrushless);
+
+    this.angle = 0.0; // Zero angle
+    // TODO: wouldn't O.0 be if the arm was pointed straight up? I don't think that's a good idea
+
+    this.ArmEncoder.setPosition(0); // Zero encoders
+    this.ArmEncoder = this.armRotate.getEncoder();
   }
 
   @Override
@@ -56,6 +67,24 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public void OverrideExtend(boolean t){
     extendOverride = t;
+  }
+  public boolean checkRotateDistance() {
+    this.angle = (Math.abs(this.ArmEncoder.getPosition())) / 65.0;
+    if (this.angle < 90) {
+      // TODO: this should be higher then 90 preferably. the starting position needs to be on here
+      return true;
+    }
+    return false;
+  }
+  public void rotateBack() {
+    if(checkRotateDistance()) {
+      this.armRotate.set(-0.1);
+    }
+  }
+  public void rotateForward() {
+    if(checkRotateDistance()) {
+      this.armRotate.set(0.1);
+    }
   }
    
 }

@@ -80,10 +80,15 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
     m_rightFrontEncoder = this.m_rightMotorFront.getEncoder();
     m_leftBackEncoder = this.m_leftMotorBack.getEncoder();
     m_rightBackEncoder = this.m_rightMotorBack.getEncoder();
-
+resetGyro();
     zeroEncoders();
+ 
     this.setIdleMode(IdleMode.kCoast);
     m_myRobot = new MecanumDrive(m_leftMotorFront, m_leftMotorBack, m_rightMotorFront, m_rightMotorBack);
+  }
+  private void resetGyro(){
+    gyro.resetDisplacement();
+    gyro.zeroYaw();
   }
   public double getPitch(){
     return this.gyro.getPitch();
@@ -100,24 +105,7 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
   public void periodic() {
 
   }
-  // This method will be called once per scheduler run
-
-  // private double computeActualDriveFromInput(double joystickValue, double
-  // speedScalingFactor) {
-  // //TODO: Move this to constants?
-  // double zeroLimit = 0.1;
-  // double driveCurvePower = 5.0; // 3.0;
-
-  // double outputValue = Math.abs(joystickValue) < zeroLimit ? 0 :
-  // Math.pow(joystickValue, driveCurvePower) * speedScalingFactor;
-
-  // return outputValue;
-  // }
-
-  // public void MecanumDrive(double leftJoystickValue, double rightJoystickValue)
-  // {
-  // this.MecanumDrive(leftJoystickValue, rightJoystickValue, this.currentSpeed);
-  // }
+  
 
   public void MecanumDrive(
       double leftJoystickValueY,
@@ -146,24 +134,31 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
       rightJoystickValueX = 0;
     }
 
-    // //log joystick values to network tables
-    // table.getEntry("motorLeftValue").setDouble(leftJoystickValue);
-    // table.getEntry("motorRightValue").setDouble(rightJoystickValue);
-
-    // //convert joystick values to motor inputs
-    // double leftMotorValue = this.computeActualDriveFromInput(leftJoystickValue,
-    // speedScalingFactor);
-    // double rightMotorValue = this.computeActualDriveFromInput(rightJoystickValue,
-    // speedScalingFactor);
-
-    // table.getEntry("computedMotorLeftValue").setDouble(leftMotorValue);
-    // table.getEntry("computedMotorRightValue").setDouble(rightMotorValue);
-
-    // if(doLog) System.out.println("drive-l-r, " + leftMotorValue +", " +
-    // rightMotorValue);
      Rotation2d gyroAngle = this.gyro.getRotation2d();
+
     m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX  , gyroAngle);
     // m_myRobot.driveCartesian(0.1, 0,0);
+  }
+  public void MecanumPolarDrive(double Speed, Rotation2d Angle, double rotate){
+
+    Speed = -Math.pow(
+      Math.signum(Speed) * Math.min(1, Math.abs(Speed)) * Constants.SPEED_REGULATOR, 3);
+
+
+  rotate = Math.pow(
+      Math.signum(rotate) * Math.min(1, Math.abs(rotate)) * Constants.TURN_REGULATOR, 3);
+
+  if (Math.abs(Speed) <= Constants.DEAD_ZONE_VALUE) {
+    Speed = 0;
+  }
+  
+  if (Math.abs(rotate) <= Constants.DEAD_ZONE_VALUE) {
+    rotate = 0;
+  }
+  Rotation2d gyroAngle = this.gyro.getRotation2d();
+  Rotation2d DriveAngle = new Rotation2d(gyroAngle.getDegrees() + Angle.getDegrees());
+  m_myRobot.drivePolar(Speed, DriveAngle, rotate  );
+
   }
 public double getGyroDispY(){
   return this.gyro.getDisplacementY();
