@@ -81,6 +81,8 @@ right(6)
     
     return new PIDforwardCommand(DriveSubsystem, dispY);
   }
+
+  //negative values should go left
   private PIDsidewaysCommand right(double distance){
     dispX+=distance;
     
