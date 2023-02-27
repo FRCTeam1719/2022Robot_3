@@ -53,9 +53,9 @@ public class RobotContainer {
   private final GrabberSubsystem Grabber = new GrabberSubsystem();
   private final BreakSubsystem m_Break = new BreakSubsystem();
   private final LedSubsystem led = new LedSubsystem();
-private final ArmSubsystem m_Arm = new ArmSubsystem();
+  private final ArmSubsystem m_Arm = new ArmSubsystem();
   private final LimelightSubsystem limelight = new LimelightSubsystem();
- // private final TestArmSubsystem testarm = new TestArmSubsystem();
+  // private final TestArmSubsystem testarm = new TestArmSubsystem();
   private edu.wpi.first.wpilibj2.command.button.Trigger whenPressed;
 
   /**
@@ -85,10 +85,9 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         this.m_MecanumDriveSubsystem, m_driveController::getLeftY, m_driveController::getLeftX,
         m_driveController::getRightX);
 
-        ManualArmCommands ManualMode = new ManualArmCommands(
-          this.m_Arm, m_helperController::getLeftY,m_helperController::getRightY);
+    ManualArmCommands ManualMode = new ManualArmCommands(
+        this.m_Arm, m_helperController::getLeftY, m_helperController::getRightY);
 
-    
     this.m_MecanumDriveSubsystem.setDefaultCommand(DriveMode);
     this.m_Arm.setDefaultCommand(ManualMode);
     new JoystickButton(m_helperController, Button.kB.value)
@@ -122,34 +121,38 @@ private final ArmSubsystem m_Arm = new ArmSubsystem();
         }));
     new JoystickButton(m_driveController, Button.kA.value)
         .onTrue(new InstantCommand(() -> {
-        this.m_Arm.getArmDistance();
+          this.m_Arm.getArmDistance();
         }));
-    new JoystickButton(m_helperController, Button.kLeftBumper.value)
-        .onTrue(new InstantCommand(() -> {
-        this.m_Arm.rotateBack();
-        }));    
-    new JoystickButton(m_helperController, Button.kRightBumper.value)
-        .onTrue(new InstantCommand(() -> {
-        this.m_Arm.rotateForward();
-        }));    
     new JoystickButton(m_helperController, Button.kY.value)
         .onTrue(
-          new PIDextendArmCommand(Constants.ARM_MID,m_Arm)
-        );
-        new JoystickButton(m_helperController, Button.kX.value)
+            new PIDextendArmCommand(Constants.ARM_MID, m_Arm));
+    new JoystickButton(m_helperController, Button.kX.value)
         .onTrue(
-          new PIDextendArmCommand(Constants.ARM_BEGIN,m_Arm)
-        );
-        new JoystickButton(m_helperController, Button.kA.value)
+            new PIDextendArmCommand(Constants.ARM_BEGIN, m_Arm));
+    new JoystickButton(m_helperController, Button.kA.value)
         .onTrue(
-          new PIDextendArmCommand(Constants.ARM_LONG,m_Arm)
-        );
-        new JoystickButton(m_helperController, Button.kRightStick.value)
-        .whileTrue(new InstantCommand(()->{this.m_Arm.OverrideExtend(true);}));
-      
-      new JoystickButton(m_helperController, Button.kRightStick.value)
-        .whileFalse(new InstantCommand(()->{this.m_Arm.OverrideExtend(false);}));
-      }
+            new PIDextendArmCommand(Constants.ARM_LONG, m_Arm));
+    new JoystickButton(m_helperController, Button.kRightStick.value)
+        .whileTrue(new InstantCommand(() -> {
+          this.m_Arm.OverrideExtend(true);
+        }));
+
+    new JoystickButton(m_helperController, Button.kRightStick.value)
+        .whileFalse(new InstantCommand(() -> {
+          this.m_Arm.OverrideExtend(false);
+        }));
+
+    new JoystickButton(m_helperController, Button.kLeftStick.value)
+        .whileTrue(new InstantCommand(() -> {
+          this.m_Arm.OverrideRotate(true);
+        }));
+
+    new JoystickButton(m_helperController, Button.kLeftStick.value)
+        .whileFalse(new InstantCommand(() -> {
+          this.m_Arm.OverrideRotate(false);
+        }));
+  }
+
   public Command getAutonomousCommand() {
     return null;
   }

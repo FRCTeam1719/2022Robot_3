@@ -10,38 +10,40 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.ArmSubsystem;
 
-
 public class ManualArmCommands extends CommandBase {
   /** Creates a new ManualArmCommands. */
-  double leftY;
-   double rightY;
-   ArmSubsystem arm;
+  private DoubleSupplier leftY;
+  private DoubleSupplier rightY;
+  private ArmSubsystem arm;
+
   public ManualArmCommands(ArmSubsystem m_arm, DoubleSupplier m_leftY, DoubleSupplier m_rightY) {
-    addRequirements(m_arm) ;
+    addRequirements(m_arm);
 
-leftY = m_leftY.getAsDouble();
-rightY = m_rightY.getAsDouble();
-arm=m_arm;
-
-
+    this.leftY = m_leftY;
+    this.rightY = m_rightY;
+    this.arm = m_arm;
 
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-this.arm.extend(Math.pow(
-  Math.signum(leftY) * Math.min(1, Math.abs(leftY)) * Constants.ARMSPEED_SCALER, 3));
+    this.arm.extend(-Math.pow(
+        Math.signum(this.rightY.getAsDouble()) * Math.min(1, Math.abs(this.rightY.getAsDouble())) * Constants.ARMSPEED_SCALER, 3));
+    this.arm.rotate(-Math.pow(
+        Math.signum(this.leftY.getAsDouble()) * Math.min(1, Math.abs(this.leftY.getAsDouble())) * Constants.ARMSPEED_SCALER, 3));
 
   }
 
   // Called once the command ends or is interrupted.
   @Override
-  public void end(boolean interrupted) {}
+  public void end(boolean interrupted) {
+  }
 
   // Returns true when the command should end.
   @Override
