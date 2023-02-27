@@ -24,6 +24,7 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armRotate;
   private double angle;
 
+
   public ArmSubsystem() {
     this.armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
     this.armRotate = new CANSparkMax(Constants.ARM_ROTATE_CAN_ID, MotorType.kBrushless);
@@ -80,5 +81,6 @@ public class ArmSubsystem extends SubsystemBase {
   public void OverrideRotate(boolean t){
     this.rotateOverride = t;
   }
+
    
 }
