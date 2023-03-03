@@ -29,7 +29,7 @@ private double dispX=0;
 
     
     testAutongrab();
-    testAutondrive();
+   // testAutondrive();
 
      
   }
@@ -54,8 +54,8 @@ private double dispX=0;
   // addCommands(new FooCommand(), new BarCommand());
   addCommands(
   
-forward(3), 
-right(6) 
+forward(0.4)
+//right(6) 
 
 
 

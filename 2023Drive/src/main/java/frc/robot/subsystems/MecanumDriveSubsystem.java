@@ -136,7 +136,9 @@ resetGyro();
 
      Rotation2d gyroAngle = this.gyro.getRotation2d();
 
-    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX  , gyroAngle);
+    m_myRobot.driveCartesian(leftJoystickValueX, leftJoystickValueY, rightJoystickValueX 
+    // , gyroAngle
+    );
     // m_myRobot.driveCartesian(0.1, 0,0);
   }
   public void MecanumPolarDrive(double Speed, Rotation2d Angle, double rotate){

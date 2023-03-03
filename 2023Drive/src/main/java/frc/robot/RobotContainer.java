@@ -48,8 +48,6 @@ public class RobotContainer {
 
   // The robot's subsystems and commands are defined here...
   private final MecanumDriveSubsystem m_MecanumDriveSubsystem = new MecanumDriveSubsystem();
-  // private final DriveTrainSubsystem driveSubsystem = new
-  // DriveTrainSubsystem();;
   private final GrabberSubsystem Grabber = new GrabberSubsystem();
   private final BreakSubsystem m_Break = new BreakSubsystem();
   private final LedSubsystem led = new LedSubsystem();
@@ -154,7 +152,7 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() {
-    return null;
+    return new AutonSequentialCommands(this.m_MecanumDriveSubsystem, this.Grabber, this.m_Arm);
   }
 
 }

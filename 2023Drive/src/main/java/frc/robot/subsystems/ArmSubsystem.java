@@ -40,11 +40,12 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    getArmDistance();
   }
 
   public double getArmDistance() {
     double distance = armDistance.getRange();
-    System.out.println(distance);
+    System.out.println(distance + "this is the right number!!!");
     if (distance > 1699){
       return 2000;
     }
