@@ -14,6 +14,7 @@ public class BreakSubsystem extends SubsystemBase {
   private Solenoid Breakswitch = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
   private boolean breakState = false;
 
+  
   public BreakSubsystem() {
     Breakswitch.set(false);
   }
