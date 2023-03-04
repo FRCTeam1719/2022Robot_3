@@ -61,5 +61,12 @@ public static final double DRIVEkp = 0.2;
 public static final double DRIVEki = 0.2;
 public static final double DRIVEkd = 0.2;
 
+// PercentPositions for encoder extension
+ 
+public static final double PERCENT_BEGIN = 0; // Change to 0
+public static final double PERCENT_MID = 50;
+public static final double PERCENT_LONG = 90;
+public static final double PERCENT_MAX = 100; //Change to 100
+
 }
  

@@ -123,13 +123,16 @@ public class RobotContainer {
         }));
     new JoystickButton(m_helperController, Button.kY.value)
         .onTrue(
-            new PIDextendArmCommand(Constants.ARM_MID, m_Arm));
+            //new PIDextendArmCommand(Constants.ARM_MID, m_Arm));
+            new ExtendEncoderCommand(m_Arm, Constants.PERCENT_MID));
     new JoystickButton(m_helperController, Button.kX.value)
         .onTrue(
-            new PIDextendArmCommand(Constants.ARM_BEGIN, m_Arm));
+           // new PIDextendArmCommand(Constants.ARM_BEGIN, m_Arm));
+            new ExtendEncoderCommand(m_Arm, Constants.PERCENT_BEGIN));
     new JoystickButton(m_helperController, Button.kA.value)
         .onTrue(
-            new PIDextendArmCommand(Constants.ARM_LONG, m_Arm));
+           // new PIDextendArmCommand(Constants.ARM_LONG, m_Arm));
+           new ExtendEncoderCommand(m_Arm, Constants.PERCENT_LONG));
     new JoystickButton(m_helperController, Button.kRightStick.value)
         .whileTrue(new InstantCommand(() -> {
           this.m_Arm.OverrideExtend(true);
