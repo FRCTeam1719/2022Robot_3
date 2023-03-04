@@ -89,6 +89,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
 public double getArmEncoderDistance(){
   double percentPosition = this.ExtendEncoder.getPosition()/100;
+  System.out.println(percentPosition);
   return percentPosition;
 }
    
