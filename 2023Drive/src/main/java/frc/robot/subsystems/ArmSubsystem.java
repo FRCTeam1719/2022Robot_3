@@ -23,6 +23,7 @@ public class ArmSubsystem extends SubsystemBase {
   private CANSparkMax armExtend;
   private CANSparkMax armRotate;
   private double angle;
+  private RelativeEncoder ExtendEncoder;
 
 
   public ArmSubsystem() {
@@ -35,6 +36,8 @@ public class ArmSubsystem extends SubsystemBase {
 
     this.ArmEncoder = this.armRotate.getEncoder();
     this.ArmEncoder.setPosition(0); // Zero encoders
+    this.ExtendEncoder = this.armExtend.getEncoder();
+    this.ExtendEncoder.setPosition(0);
   }
 
   @Override
@@ -52,8 +55,10 @@ public class ArmSubsystem extends SubsystemBase {
     return distance;
    }
   public void extend(double extendSpeed){
-    boolean lessThanMax = this.getArmDistance() < Constants.MAX_DISTANCE;
-    boolean moreThanBegin = this.getArmDistance() > Constants.ARM_BEGIN;
+    //boolean lessThanMax = this.getArmDistance() < Constants.MAX_DISTANCE;
+   // boolean moreThanBegin = this.getArmDistance() > Constants.ARM_BEGIN;
+       boolean lessThanMax = this.getArmEncoderDistance() < Constants.PERCENT_MAX;
+    boolean moreThanBegin = this.getArmEncoderDistance() > Constants.PERCENT_BEGIN;
     boolean retracting = extendSpeed < 0;
     if (this.extendOverride){
       this.armExtend.set(extendSpeed);
@@ -65,7 +70,7 @@ public class ArmSubsystem extends SubsystemBase {
     this.extendOverride = t;
   }
   public double checkRotateDistance() {
-    this.angle = (this.ArmEncoder.getPosition()) / 65.0;
+    this.angle = (this.ArmEncoder.getPosition()) / 130.0;
     return this.angle;
   }
  
@@ -82,6 +87,9 @@ public class ArmSubsystem extends SubsystemBase {
   public void OverrideRotate(boolean t){
     this.rotateOverride = t;
   }
-
+public double getArmEncoderDistance(){
+  double percentPosition = this.ExtendEncoder.getPosition()/100;
+  return percentPosition;
+}
    
 }
