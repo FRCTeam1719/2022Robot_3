@@ -69,7 +69,12 @@ public class ArmSubsystem extends SubsystemBase {
   public void OverrideExtend(boolean t){
     this.extendOverride = t;
   }
-  public double checkRotateDistance() {
+
+  public double armanGle(){
+    angle = (this.ArmEncoder.getPosition()) / 65.0;
+    return angle;
+  }
+  public void rotateBack() {
     this.angle = (this.ArmEncoder.getPosition()) / 130.0;
     return this.angle;
   }
