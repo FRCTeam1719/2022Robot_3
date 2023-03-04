@@ -18,33 +18,34 @@ public class ArmSubsystem extends SubsystemBase {
 
   private TimeOfFlight armDistance;
   private boolean extendOverride;
-
+  private boolean rotateOverride;
   private RelativeEncoder ArmEncoder;
   private CANSparkMax armExtend;
   private CANSparkMax armRotate;
   private double angle;
-  private boolean rotateOverride;
+
 
   public ArmSubsystem() {
     this.armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
-    this.armExtend = new CANSparkMax(6, MotorType.kBrushless);
-    this.armRotate = new CANSparkMax(5, MotorType.kBrushless);
+    this.armRotate = new CANSparkMax(Constants.ARM_ROTATE_CAN_ID, MotorType.kBrushless);
+    this.armExtend = new CANSparkMax(Constants.ARM_EXTEND_CAN_ID, MotorType.kBrushless);
 
     this.angle = 0.0; // Zero angle
     // TODO: wouldn't O.0 be if the arm was pointed straight up? I don't think that's a good idea
 
-    this.ArmEncoder.setPosition(0); // Zero encoders
     this.ArmEncoder = this.armRotate.getEncoder();
+    this.ArmEncoder.setPosition(0); // Zero encoders
   }
 
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
+    getArmDistance();
   }
 
   public double getArmDistance() {
     double distance = armDistance.getRange();
-    System.out.println(distance);
+    System.out.println(distance + "this is the right number!!!");
     if (distance > 1699){
       return 2000;
     }
@@ -55,16 +56,10 @@ public class ArmSubsystem extends SubsystemBase {
     boolean moreThanBegin = this.getArmDistance() > Constants.ARM_BEGIN;
     boolean retracting = extendSpeed < 0;
     if (this.extendOverride){
-      armExtend.set(extendSpeed);
-    }
-    else if (lessThanMax && moreThanBegin){
-    armExtend.set(extendSpeed);
+      this.armExtend.set(extendSpeed);
     } else if (retracting && moreThanBegin ||  !retracting && lessThanMax){
-      armExtend.set(extendSpeed);
+      this.armExtend.set(extendSpeed);
     } 
-    //System.out.println("lessthatnmax"+lessThanMax);
-    //System.out.println("retrancting "+retracting);
-    System.out.println("retranctingspeed "+extendSpeed);
   }
   public void OverrideExtend(boolean t){
     this.extendOverride = t;
@@ -76,18 +71,22 @@ public class ArmSubsystem extends SubsystemBase {
   }
   public void rotateBack() {
     this.angle = (this.ArmEncoder.getPosition()) / 65.0;
-    if(this.angle > -90 || this.rotateOverride) {
-      this.armRotate.set(-0.1);
-    }
+    return this.angle;
   }
-  public void rotateForward() {
-    this.angle = (this.ArmEncoder.getPosition()) / 65.0;
-    if(this.angle < 90 || this.rotateOverride) {
-      this.armRotate.set(0.1);
-    }
+ 
+  public void rotate(double rotateSpeed){
+    boolean lessThanMax = this.checkRotateDistance() < 90;
+    boolean moreThanBegin = this.checkRotateDistance() > -90;
+    boolean retracting = rotateSpeed < 0;
+    if (this.rotateOverride){
+      this.armRotate.set(rotateSpeed);
+    } else if (retracting && moreThanBegin ||  !retracting && lessThanMax){
+      this.armRotate.set(rotateSpeed);
+    } 
   }
   public void OverrideRotate(boolean t){
-    rotateOverride = t;
+    this.rotateOverride = t;
   }
+
    
 }

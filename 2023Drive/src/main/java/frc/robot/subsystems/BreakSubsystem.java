@@ -11,9 +11,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class BreakSubsystem extends SubsystemBase {
   /** Creates a new BreakSubsystem. */
-  private Solenoid Breakswitch = new Solenoid(PneumaticsModuleType.REVPH, 2);
+  private Solenoid Breakswitch = new Solenoid(PneumaticsModuleType.CTREPCM, 2);
   private boolean breakState = false;
 
+  
   public BreakSubsystem() {
     Breakswitch.set(false);
   }

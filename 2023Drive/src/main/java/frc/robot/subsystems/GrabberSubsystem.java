@@ -11,7 +11,7 @@ public class GrabberSubsystem extends SubsystemBase {
   /** Creates a new GrabberSubsystem. */
   public GrabberSubsystem() {}
 
-     private Solenoid Grabswitch = new Solenoid(PneumaticsModuleType.REVPH, 0);
+     private Solenoid Grabswitch = new Solenoid(PneumaticsModuleType.CTREPCM, 0);
 
      public void Grab(){
       Grabswitch.set(true);
