@@ -42,7 +42,7 @@ public static final double Zero_for_now = 0; // change to 0
 public static final double SPEED_REGULATOR = 0.65;
 public static final double DEAD_ZONE_VALUE = 0.03;
 public static final double TURN_REGULATOR = 0.6;
-public static final double ARMSPEED_SCALER = 0.65;
+public static final double ARMSPEED_SCALER = 0.55;
 
 // Time of Flight 
 public static final int TIMEOFFLIGHT_ID = 0;
