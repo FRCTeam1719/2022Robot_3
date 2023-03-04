@@ -7,6 +7,9 @@ import java.lang.Object;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.lang.AutoCloseable;
 import frc.robot.Constants;
+import frc.robot.commands.ExtendEncoderCommand;
+import frc.robot.commands.PIDextendArmCommand;
+
 import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
@@ -70,25 +73,32 @@ public class ArmSubsystem extends SubsystemBase {
     this.extendOverride = t;
   }
 
-  public double armanGle(){
-    angle = (this.ArmEncoder.getPosition()) / 65.0;
-    return angle;
-  }
-  public void rotateBack() {
-    this.angle = (this.ArmEncoder.getPosition()) / 130.0;
+  
+  public double rotateAngle() {
+    this.angle = (this.ArmEncoder.getPosition()) / Constants.ROTATE_GEAR_RATIO;
     return this.angle;
   }
  
   public void rotate(double rotateSpeed){
-    boolean lessThanMax = this.checkRotateDistance() < 90;
-    boolean moreThanBegin = this.checkRotateDistance() > -90;
+    boolean lessThanMax = this.rotateAngle() < .25;
+    boolean moreThanBegin = this.rotateAngle() > -.25;
+    boolean highrange = (this.rotateAngle() > -.125 && this.rotateAngle() < .125);
     boolean retracting = rotateSpeed < 0;
+    if (highrange){
+      
+    }
     if (this.rotateOverride){
       this.armRotate.set(rotateSpeed);
     } else if (retracting && moreThanBegin ||  !retracting && lessThanMax){
       this.armRotate.set(rotateSpeed);
     } 
   }
+public void restrictArmHeight(){
+if (getArmEncoderDistance() > Constants.PERCENT_MAX_HEIGHT){
+ new ExtendEncoderCommand( this, 70);
+}
+}
+
   public void OverrideRotate(boolean t){
     this.rotateOverride = t;
   }

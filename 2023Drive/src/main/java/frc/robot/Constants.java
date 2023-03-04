@@ -67,6 +67,12 @@ public static final double PERCENT_BEGIN = 0; // Change to 0
 public static final double PERCENT_MID = 50;
 public static final double PERCENT_LONG = 90;
 public static final double PERCENT_MAX = 100; //Change to 100
+public static final double PERCENT_MAX_HEIGHT = 70; //Change to 100
+
+
+
+// GearRatios
+public static final double ROTATE_GEAR_RATIO = 130;
 
 }
  
