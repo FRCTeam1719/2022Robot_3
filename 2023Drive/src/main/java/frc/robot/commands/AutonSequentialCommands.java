@@ -8,6 +8,7 @@ import frc.robot.subsystems.*;
 import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -43,12 +44,10 @@ private double dispX=0;
     addCommands(
     
   //isGrab(true), 
-  zerCommand(),
-delay(2),
-forward(100),
-
-
+zerCommand(),
+forward(5),
 isGrab(true),
+delay(2),
 isGrab(false)
 
 
@@ -83,6 +82,12 @@ forward(0.4)
   private InstantCommand zerCommand(){
     return new InstantCommand(() ->{ this.m_DriveSubsystem.zeroEncoders();});
   }
+  private InstantCommand Drive(){
+    return new InstantCommand(() ->{ this.m_DriveSubsystem.MecanumDrive(0, 1, 0);});
+
+  }  private InstantCommand stopDrive(){
+    return new InstantCommand(() ->{ this.m_DriveSubsystem.MecanumDrive(0, 0, 0);});
+  }
   private WaitCommand delay(double s){
     return new WaitCommand(s);
   }
@@ -95,13 +100,14 @@ forward(0.4)
   }
   private PIDforwardCommand forward(double distance){
     dispY+=distance;
+    SmartDashboard.putNumber("dispY", dispY);
     
     return new PIDforwardCommand(this.m_DriveSubsystem, dispY);
   }
 
   //negative values should go left
   private PIDsidewaysCommand right(double distance){
-    dispX+=distance;
+    dispX-=distance;
     
     return new PIDsidewaysCommand(this.m_DriveSubsystem, dispX);
   }
