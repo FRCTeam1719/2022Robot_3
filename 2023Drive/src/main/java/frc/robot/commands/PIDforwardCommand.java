@@ -27,6 +27,7 @@ public class PIDforwardCommand extends PIDCommand {
           DriveSubsystem.testAutondrive(0, output, 0);
         });
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(DriveSubsystem);
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(0.5);
   }
