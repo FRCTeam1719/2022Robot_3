@@ -25,6 +25,7 @@ private ArmSubsystem m_armSubsystem;
 private Rotation2d dAngle;
 private double dispY=0;
 private double dispX=0;
+private double setpoint = 0;
   /** Creates a new AutonSequentialCommands. */
   public AutonSequentialCommands(MecanumDriveSubsystem DriveSubsystem, GrabberSubsystem grabberSubsystem, ArmSubsystem armSubsystem) {
     this.m_DriveSubsystem = DriveSubsystem;
@@ -32,6 +33,7 @@ private double dispX=0;
     this.m_armSubsystem = armSubsystem;
     dispY=0;
     dispX=0;
+    setpoint = 0;
     testAutongrab();
     //testAutondrive();
 
@@ -61,24 +63,39 @@ isGrab(false)
   private void testAutondrive(){
     // Addd your commands in the addCommands() call, e.g.
   // addCommands(new FooCommand(), new BarCommand());
-  addCommands(
+  addCommands( 
+    zerCommand(),
+    setTarget(10),
+    checkTarget()
+   
+    
   
-forward(0.4)
-//right(6) 
-
-
-
-
-// ...
 
 );
 }
+  private void addCommands(InstantCommand zerCommand, Object println, InstantCommand setTarget,
+      InstantCommand checkTarget) {
+  }
+
   private InstantCommand isGrab(boolean state){
     return new InstantCommand(() ->{ this.m_grabberSubsystem.Grab(state);});
   }
-  // private InstantCommand setdriveforward(double speed){
-  //   return new InstantCommand(() ->{ m_DriveSubsystem.m_leftMotorBack.set(0);});
-  // }
+
+  private InstantCommand checkTarget(){
+    if (this.m_DriveSubsystem.getLeftFrontPosition() < setpoint ) {
+      Drive();
+      SmartDashboard.putBoolean("zerCommand", true);
+      return checkTarget();
+      
+    } else {
+      return stopDrive();
+    }
+    
+    
+  }
+  private InstantCommand setTarget(double target){
+return new InstantCommand(()-> {setpoint = target;});
+  }
   private InstantCommand zerCommand(){
     return new InstantCommand(() ->{ this.m_DriveSubsystem.zeroEncoders();});
   }
