@@ -19,15 +19,16 @@ public class PIDforwardCommand extends PIDCommand {
         // The controller that the command will use
         new PIDController( Constants.DRIVEkp, Constants.DRIVEki, Constants.DRIVEkd),
         // This should return the measurement
-        () -> DriveSubsystem.getGyroDispY(),
+        () -> DriveSubsystem.getLeftFrontPosition(),
         // This should return the setpoint (can also be a constant)
         () -> target,
         // This uses the output
         output -> {
-          DriveSubsystem.MecanumDrive(output, 0, 0);
+          DriveSubsystem.MecanumDrive(0, output, 0);
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
+    getController().setTolerance(0.5);
   }
 
   // Returns true when the command should end.

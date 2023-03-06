@@ -26,7 +26,7 @@ public class LimelightSubsystem {
 
         //calculate distance
         double distanceFromLimelightToGoalInches = (goalHeightInches - limelightLensHeightInches)/Math.tan(angleToGoalRadians);
-        System.out.println(distanceFromLimelightToGoalInches);
+        //System.out.println(distanceFromLimelightToGoalInches);
 
         return distanceFromLimelightToGoalInches;
     }

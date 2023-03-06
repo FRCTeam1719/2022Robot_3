@@ -32,7 +32,7 @@ public class MecanumPIDCommand extends PIDCommand {
         // This uses the output
         output -> {
           // change other 2 values later
-          System.out.println(output);
+          //System.out.println(output);
           driver.MecanumDrive(output, 0, 0);
         });
 

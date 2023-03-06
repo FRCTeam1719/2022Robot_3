@@ -7,7 +7,7 @@ package frc.robot.commands;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.ArmSubsystem;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
@@ -26,6 +26,7 @@ public class PIDextendArmCommand extends PIDCommand {
         output -> {
           
           armSubsystem.extend(output);
+          SmartDashboard.putBoolean("PID extendarm command",true );
         });
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.

@@ -12,15 +12,17 @@ import edu.wpi.first.wpilibj.SPI;
 
 import edu.wpi.first.wpilibj.drive.MecanumDrive;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 import com.kauailabs.navx.frc.AHRS;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import frc.robot.Constants;
 import java.util.function.DoubleSupplier;
 import java.lang.Math;
-import com.revrobotics.RelativeEncoder;
+import com.revrobotics.SparkMaxRelativeEncoder;
 import com.revrobotics.CANSparkMax.IdleMode;
 
 public class MecanumDriveSubsystem extends SubsystemBase {
@@ -78,7 +80,7 @@ m_leftMotorFront.setIdleMode(this.m_idleMode);
 
     m_leftFrontEncoder = this.m_leftMotorFront.getEncoder();
     m_rightFrontEncoder = this.m_rightMotorFront.getEncoder();
-    m_leftBackEncoder = this.m_leftMotorBack.getEncoder();
+    m_leftBackEncoder =  this.m_leftMotorBack.getEncoder();
     m_rightBackEncoder = this.m_rightMotorBack.getEncoder();
 resetGyro();
     zeroEncoders();
@@ -171,7 +173,8 @@ public double getGyroDispX(){
   return this.gyro.getDisplacementX();
 }
 
-  private double getLeftFrontPosition() {
+  public double getLeftFrontPosition() {
+    SmartDashboard.putNumber("m_leftFrontEncoder", this.m_leftFrontEncoder.getPosition());
     return this.m_leftFrontEncoder.getPosition();
   }
 

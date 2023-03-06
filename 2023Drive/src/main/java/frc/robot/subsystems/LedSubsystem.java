@@ -51,7 +51,6 @@ public class LedSubsystem extends SubsystemBase {
         for (var i = 0; i < this.ledBuffer.getLength(); i++) {
             // Sets the specified LED to the RGB values for red
             this.ledBuffer.setRGB(i, 255, 87, 51);
-           // System.out.println(i);
          }}
     public void LBLUE(){
         for (var i = 0; i < this.ledBuffer.getLength(); i++) {

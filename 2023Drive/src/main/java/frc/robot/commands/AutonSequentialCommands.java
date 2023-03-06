@@ -18,16 +18,19 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonSequentialCommands extends SequentialCommandGroup {
-  private MecanumDriveSubsystem DriveSubsystem;
-private GrabberSubsystem grabberSubsystem;
-private ArmSubsystem armSubsystem;
+  private MecanumDriveSubsystem m_DriveSubsystem;
+private GrabberSubsystem m_grabberSubsystem;
+private ArmSubsystem m_armSubsystem;
 private Rotation2d dAngle;
 private double dispY=0;
 private double dispX=0;
   /** Creates a new AutonSequentialCommands. */
   public AutonSequentialCommands(MecanumDriveSubsystem DriveSubsystem, GrabberSubsystem grabberSubsystem, ArmSubsystem armSubsystem) {
-
-    
+    this.m_DriveSubsystem = DriveSubsystem;
+    this.m_grabberSubsystem = grabberSubsystem;
+    this.m_armSubsystem = armSubsystem;
+    dispY=0;
+    dispX=0;
     testAutongrab();
     //testAutondrive();
 
@@ -39,9 +42,16 @@ private double dispX=0;
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     
-  isGrab(true), 
-  delay(4),
-  isGrab(false) 
+  //isGrab(true), 
+  zerCommand(),
+delay(2),
+forward(100),
+
+
+isGrab(true),
+isGrab(false)
+
+
   
 
   
@@ -50,7 +60,7 @@ private double dispX=0;
   );
   }
   private void testAutondrive(){
-    // Add your commands in the addCommands() call, e.g.
+    // Addd your commands in the addCommands() call, e.g.
   // addCommands(new FooCommand(), new BarCommand());
   addCommands(
   
@@ -65,29 +75,35 @@ forward(0.4)
 );
 }
   private InstantCommand isGrab(boolean state){
-    return new InstantCommand(() ->{ grabberSubsystem.Grab(state);});
+    return new InstantCommand(() ->{ this.m_grabberSubsystem.Grab(state);});
+  }
+  // private InstantCommand setdriveforward(double speed){
+  //   return new InstantCommand(() ->{ m_DriveSubsystem.m_leftMotorBack.set(0);});
+  // }
+  private InstantCommand zerCommand(){
+    return new InstantCommand(() ->{ this.m_DriveSubsystem.zeroEncoders();});
   }
   private WaitCommand delay(double s){
     return new WaitCommand(s);
   }
   private PIDextendArmCommand armTarget(double target){
-    return new PIDextendArmCommand(target, armSubsystem);
+    return new PIDextendArmCommand(target, this.m_armSubsystem);
 
   }
   private PIDbalancerCommand balance(){
-    return new PIDbalancerCommand(DriveSubsystem);
+    return new PIDbalancerCommand(this.m_DriveSubsystem);
   }
   private PIDforwardCommand forward(double distance){
     dispY+=distance;
     
-    return new PIDforwardCommand(DriveSubsystem, dispY);
+    return new PIDforwardCommand(this.m_DriveSubsystem, dispY);
   }
 
   //negative values should go left
   private PIDsidewaysCommand right(double distance){
     dispX+=distance;
     
-    return new PIDsidewaysCommand(DriveSubsystem, dispX);
+    return new PIDsidewaysCommand(this.m_DriveSubsystem, dispX);
   }
 }
 

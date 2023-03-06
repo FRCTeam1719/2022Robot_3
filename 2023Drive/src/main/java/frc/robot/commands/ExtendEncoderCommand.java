@@ -5,6 +5,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
@@ -16,7 +17,7 @@ public class ExtendEncoderCommand extends PIDCommand {
   public ExtendEncoderCommand(ArmSubsystem Arm, double percentTarget) {
     super(
         // The controller that the command will use
-        new PIDController(0.1, 0.1, 0.1),
+        new PIDController(1, 0.1, 0.1),
         // This should return the measurement
         () -> Arm.getArmEncoderDistance(),
         // This should return the setpoint (can also be a constant)
@@ -28,7 +29,7 @@ public class ExtendEncoderCommand extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     // Configure additional PID options by calling `getController` here.
     getController().setTolerance(1.0);
-  }
+    SmartDashboard.putBoolean("Talererance",true );  }
 
   // Returns true when the command should end.
   @Override

@@ -7,7 +7,8 @@ package frc.robot;
 import java.util.function.DoubleSupplier;
 
 /**
- * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
+ * The Constants class provides a 
+ * convenient place for teams to hold robot-wide numerical or boolean
  * constants. This class should not be used for any other purpose. All constants should be declared
  * globally (i.e. public static). Do not put anything functional in this class.
  *
@@ -57,9 +58,9 @@ public static final double ARM_LONG = 1000;
 // Movement PID's 
 
 
-public static final double DRIVEkp = 0.2;
-public static final double DRIVEki = 0.2;
-public static final double DRIVEkd = 0.2;
+public static final double DRIVEkp = 10;
+public static final double DRIVEki = 10;
+public static final double DRIVEkd = 10;
 
 // PercentPositions for encoder extension
  
@@ -67,12 +68,17 @@ public static final double PERCENT_BEGIN = 0; // Change to 0
 public static final double PERCENT_MID = 50;
 public static final double PERCENT_LONG = 90;
 public static final double PERCENT_MAX = 100; //Change to 100
-public static final double PERCENT_MAX_HEIGHT = 70; //Change to 100
+public static final double PERCENT_MAX_HEIGHT = 80; //Change to 100
+
+// armangles
+
+public static final double MAX_ROTATE = 0.285; // change to 0.275
 
 
 
 // GearRatios
 public static final double ROTATE_GEAR_RATIO = 130;
+public static final double EXTEND_MAX_CXYCLES = 100;
 
 }
  

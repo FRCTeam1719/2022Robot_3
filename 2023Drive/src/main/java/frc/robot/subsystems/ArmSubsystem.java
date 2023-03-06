@@ -14,7 +14,7 @@ import com.playingwithfusion.TimeOfFlight;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import com.revrobotics.RelativeEncoder;
-
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class ArmSubsystem extends SubsystemBase {
   /** Creates a new ArmSubsystem. */
@@ -46,12 +46,12 @@ public class ArmSubsystem extends SubsystemBase {
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    getArmDistance();
+   // getArmDistance();
   }
 
   public double getArmDistance() {
     double distance = armDistance.getRange();
-    System.out.println(distance + "this is the right number!!!");
+   
     if (distance > 1699){
       return 2000;
     }
@@ -67,7 +67,12 @@ public class ArmSubsystem extends SubsystemBase {
       this.armExtend.set(extendSpeed);
     } else if (retracting && moreThanBegin ||  !retracting && lessThanMax){
       this.armExtend.set(extendSpeed);
-    } 
+    } else{
+      this.armExtend.set(0);
+    }
+    SmartDashboard.putBoolean("lessthanMax",lessThanMax);
+    SmartDashboard.putBoolean("morethanbegin",moreThanBegin);
+    SmartDashboard.putBoolean("retracting",retracting);
   }
   public void OverrideExtend(boolean t){
     this.extendOverride = t;
@@ -80,20 +85,25 @@ public class ArmSubsystem extends SubsystemBase {
   }
  
   public void rotate(double rotateSpeed){
-    boolean lessThanMax = this.rotateAngle() < .25;
-    boolean moreThanBegin = this.rotateAngle() > -.25;
+    boolean lessThanMax = this.rotateAngle() < Constants.MAX_ROTATE;
+    boolean moreThanOtherMax = this.rotateAngle() > -Constants.MAX_ROTATE;
     boolean highrange = (this.rotateAngle() > -.125 && this.rotateAngle() < .125);
     boolean retracting = rotateSpeed < 0;
     if (highrange){
-      
+      restrictArmHeight();
     }
     if (this.rotateOverride){
       this.armRotate.set(rotateSpeed);
-    } else if (retracting && moreThanBegin ||  !retracting && lessThanMax){
+    } else if (retracting && moreThanOtherMax ||  !retracting && lessThanMax){
       this.armRotate.set(rotateSpeed);
-    } 
+      
+    } else{
+      this.armRotate.set(0);
+    SmartDashboard.putNumber("speed arm x ", rotateSpeed);
+    }
   }
 public void restrictArmHeight(){
+  SmartDashboard.putBoolean("restricting Arm hight",true );
 if (getArmEncoderDistance() > Constants.PERCENT_MAX_HEIGHT){
  new ExtendEncoderCommand( this, 70);
 }
@@ -103,8 +113,10 @@ if (getArmEncoderDistance() > Constants.PERCENT_MAX_HEIGHT){
     this.rotateOverride = t;
   }
 public double getArmEncoderDistance(){
-  double percentPosition = this.ExtendEncoder.getPosition()/100;
-  System.out.println(percentPosition);
+  double percentPosition =100 * this.ExtendEncoder.getPosition()/Constants.EXTEND_MAX_CXYCLES;
+  SmartDashboard.putNumber("percentPosition",percentPosition);
+ 
+  System.out.println(percentPosition + "j");
   return percentPosition;
 }
    
