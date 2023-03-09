@@ -17,9 +17,9 @@ public class PIDextendArmCommand extends PIDCommand {
   public PIDextendArmCommand(double target, ArmSubsystem armSubsystem) {
     super(
         // The controller that the command will use
-        new PIDController(0.1, 0.1, 0.1),
+        new PIDController(1, 1, 1),
         // This should return the measurement
-        () -> armSubsystem.getArmDistance(),
+        () -> armSubsystem.getArmEncoderDistance(),
         // This should return the setpoint (can also be a constant)
         () -> target,
         // This uses the output

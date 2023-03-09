@@ -89,9 +89,6 @@ public class ArmSubsystem extends SubsystemBase {
     boolean moreThanOtherMax = this.rotateAngle() > -Constants.MAX_ROTATE;
     boolean highrange = (this.rotateAngle() > -.125 && this.rotateAngle() < .125);
     boolean retracting = rotateSpeed < 0;
-    if (highrange){
-      restrictArmHeight();
-    }
     if (this.rotateOverride){
       this.armRotate.set(rotateSpeed);
     } else if (retracting && moreThanOtherMax ||  !retracting && lessThanMax){
@@ -102,12 +99,8 @@ public class ArmSubsystem extends SubsystemBase {
     SmartDashboard.putNumber("speed arm x ", rotateSpeed);
     }
   }
-public void restrictArmHeight(){
-  SmartDashboard.putBoolean("restricting Arm hight",true );
-if (getArmEncoderDistance() > Constants.PERCENT_MAX_HEIGHT){
- new ExtendEncoderCommand( this, 70);
-}
-}
+
+
 
   public void OverrideRotate(boolean t){
     this.rotateOverride = t;
@@ -116,7 +109,7 @@ public double getArmEncoderDistance(){
   double percentPosition =100 * this.ExtendEncoder.getPosition()/Constants.EXTEND_MAX_CXYCLES;
   SmartDashboard.putNumber("percentPosition",percentPosition);
  
-  System.out.println(percentPosition + "j");
+  //System.out.println(percentPosition + "j");
   return percentPosition;
 }
    

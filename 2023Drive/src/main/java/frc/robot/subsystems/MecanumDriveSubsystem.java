@@ -146,7 +146,7 @@ resetGyro();
 
 public void testAutondrive(double lx,double ly,double rx){
   
-  lx =Math.signum(lx) * Math.min(1, Math.abs(lx));
+  lx =Math.signum(lx) * Math.min(.3, Math.abs(lx));
   ly =Math.signum(ly) * Math.min(1, Math.abs(ly));
   rx =Math.signum(rx) * Math.min(1, Math.abs(rx));
    
@@ -192,7 +192,9 @@ public double getGyroDispX(){
   private double getLeftBackPosition() {
     return this.m_leftBackEncoder.getPosition();
   }
-  
+  public double getForwardDisplacement(){
+    return (getLeftBackPosition()+getLeftFrontPosition())*.5;
+  }
   private double getRightFrontPosition() {
     return this.m_rightFrontEncoder.getPosition();
   }

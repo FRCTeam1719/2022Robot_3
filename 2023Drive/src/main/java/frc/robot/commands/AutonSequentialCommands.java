@@ -47,10 +47,9 @@ private double setpoint = 0;
     
   //isGrab(true), 
 zerCommand(),
-forward(5),
-isGrab(true),
-delay(2),
-isGrab(false)
+
+armTarget(10)
+
 
 
   
@@ -64,46 +63,23 @@ isGrab(false)
     // Addd your commands in the addCommands() call, e.g.
   // addCommands(new FooCommand(), new BarCommand());
   addCommands( 
-    zerCommand(),
-    setTarget(10),
-    checkTarget()
+    zerCommand()
    
     
   
 
 );
 }
-  private void addCommands(InstantCommand zerCommand, Object println, InstantCommand setTarget,
-      InstantCommand checkTarget) {
-  }
+
 
   private InstantCommand isGrab(boolean state){
     return new InstantCommand(() ->{ this.m_grabberSubsystem.Grab(state);});
   }
-
-  private InstantCommand checkTarget(){
-    if (this.m_DriveSubsystem.getLeftFrontPosition() < setpoint ) {
-      Drive();
-      SmartDashboard.putBoolean("zerCommand", true);
-      return checkTarget();
-      
-    } else {
-      return stopDrive();
-    }
     
     
-  }
-  private InstantCommand setTarget(double target){
-return new InstantCommand(()-> {setpoint = target;});
-  }
+  
   private InstantCommand zerCommand(){
     return new InstantCommand(() ->{ this.m_DriveSubsystem.zeroEncoders();});
-  }
-  private InstantCommand Drive(){
-    return new InstantCommand(() ->{ this.m_DriveSubsystem.MecanumDrive(0, 1, 0);});
-
-  }  private InstantCommand stopDrive(){
-    return new InstantCommand(() ->{ this.m_DriveSubsystem.MecanumDrive(0, 0, 0);});
   }
   private WaitCommand delay(double s){
     return new WaitCommand(s);

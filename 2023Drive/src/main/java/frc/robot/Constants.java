@@ -58,9 +58,9 @@ public static final double ARM_LONG = 1000;
 // Movement PID's 
 
 
-public static final double DRIVEkp = 1000;
-public static final double DRIVEki = 0;
-public static final double DRIVEkd = 0;
+public static final double DRIVEkp = 1;
+public static final double DRIVEki = 1;
+public static final double DRIVEkd = 1;
 
 // PercentPositions for encoder extension
  

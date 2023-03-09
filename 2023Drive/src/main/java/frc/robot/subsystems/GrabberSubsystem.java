@@ -18,7 +18,7 @@ public class GrabberSubsystem extends SubsystemBase {
        
      }
      public void Grab(Boolean setting){
-      Grabswitch.set(setting);
+      Grabswitch.set(!setting);
      }
      public void Ungrab(){
       Grabswitch.set(false);
