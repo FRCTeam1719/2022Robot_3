@@ -18,7 +18,8 @@ public class PIDsidewaysCommand extends PIDCommand {
         // The controller that the command will use
         new PIDController( Constants.DRIVEkp, Constants.DRIVEki, Constants.DRIVEkd),
         // This should return the measurement
-        () -> DriveSubsystem.getGyroDispX(),
+        () -> DriveSubsystem.getForwardDisplacement(),
+        // TODO: get formula for sideways displacement.
         // This should return the setpoint (can also be a constant)
         () -> target,
         // This uses the output

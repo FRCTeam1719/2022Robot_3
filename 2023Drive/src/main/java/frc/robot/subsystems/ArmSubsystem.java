@@ -7,7 +7,6 @@ import java.lang.Object;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import java.lang.AutoCloseable;
 import frc.robot.Constants;
-import frc.robot.commands.ExtendEncoderCommand;
 import frc.robot.commands.PIDextendArmCommand;
 
 import com.playingwithfusion.TimeOfFlight;

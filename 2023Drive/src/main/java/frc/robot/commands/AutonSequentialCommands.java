@@ -19,16 +19,19 @@ import edu.wpi.first.wpilibj2.command.WaitCommand;
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
 public class AutonSequentialCommands extends SequentialCommandGroup {
+  private static final String Break = null;
   private MecanumDriveSubsystem m_DriveSubsystem;
 private GrabberSubsystem m_grabberSubsystem;
 private ArmSubsystem m_armSubsystem;
+private BreakSubsystem m_BrakeSubsystem;
 private Rotation2d dAngle;
 private double dispY=0;
 private double dispX=0;
 private double setpoint = 0;
   /** Creates a new AutonSequentialCommands. */
-  public AutonSequentialCommands(MecanumDriveSubsystem DriveSubsystem, GrabberSubsystem grabberSubsystem, ArmSubsystem armSubsystem) {
+  public AutonSequentialCommands(MecanumDriveSubsystem DriveSubsystem, GrabberSubsystem grabberSubsystem, ArmSubsystem armSubsystem, BreakSubsystem brakeSubsystem) {
     this.m_DriveSubsystem = DriveSubsystem;
+    this.m_BrakeSubsystem = brakeSubsystem;
     this.m_grabberSubsystem = grabberSubsystem;
     this.m_armSubsystem = armSubsystem;
     dispY=0;
@@ -45,14 +48,22 @@ private double setpoint = 0;
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     
-  //isGrab(true), 
+ 
 zerCommand(),
 
-armTarget(10)
-
-
-
+armRotate(0.14),
+armTarget(100),
+isGrab(false),
+delay(1),
+armTarget(0),
+armRotate(0),
+forward(30),
+brake()
+        
   
+
+
+    
 
   
   // ...
@@ -88,8 +99,12 @@ armTarget(10)
     return new PIDextendArmCommand(target, this.m_armSubsystem);
 
   }
-  private PIDbalancerCommand balance(){
-    return new PIDbalancerCommand(this.m_DriveSubsystem);
+  private PIDArmRotateCommand armRotate(double target){
+    // 1 should be a full rotation. use small fractions
+    return new PIDArmRotateCommand(m_armSubsystem, target);
+  }
+  private InstantCommand brake(){
+    return new InstantCommand(() ->{ this.m_BrakeSubsystem.Break();});
   }
   private PIDforwardCommand forward(double distance){
     dispY+=distance;

@@ -28,6 +28,7 @@ public class PIDbalancerCommand extends PIDCommand {
           balance.MecanumDrive(output, 0, 0);
         });
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(balance);
     // Configure additional PID options by calling `getController` here.
   }
 

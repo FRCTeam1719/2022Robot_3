@@ -30,7 +30,7 @@ public class PIDforwardCommand extends PIDCommand {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(DriveSubsystem);
     // Configure additional PID options by calling `getController` here.
-    getController().setTolerance(0.5);
+    getController().setTolerance(1,1);
   }
 
   // Returns true when the command should end.

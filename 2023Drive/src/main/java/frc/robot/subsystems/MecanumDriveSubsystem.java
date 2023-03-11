@@ -193,7 +193,9 @@ public double getGyroDispX(){
     return this.m_leftBackEncoder.getPosition();
   }
   public double getForwardDisplacement(){
-    return (getLeftBackPosition()+getLeftFrontPosition())*.5;
+    double dispf = (getLeftBackPosition()+getLeftFrontPosition()+getRightFrontPosition()+getRightBackPosition())*.25;
+    SmartDashboard.putNumber("m_forwarddisplacement", dispf);
+    return dispf;
   }
   private double getRightFrontPosition() {
     return this.m_rightFrontEncoder.getPosition();

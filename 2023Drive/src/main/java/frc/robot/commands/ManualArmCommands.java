@@ -34,7 +34,7 @@ public class ManualArmCommands extends CommandBase {
   @Override
   public void execute() {
     this.arm.extend(-Math.pow(
-        Math.signum(this.rightY.getAsDouble()) * Math.min(1, Math.abs(this.rightY.getAsDouble())) * Constants.ARMSPEED_SCALER, 3));
+        Math.signum(this.rightY.getAsDouble()) * Math.min(1, Math.abs(this.rightY.getAsDouble())) * Constants.ARMEXTEND_SCALER, 3));
     this.arm.rotate(-Math.pow(
         Math.signum(this.leftY.getAsDouble()) * Math.min(1, Math.abs(this.leftY.getAsDouble())) * Constants.ARMSPEED_SCALER, 3));
 

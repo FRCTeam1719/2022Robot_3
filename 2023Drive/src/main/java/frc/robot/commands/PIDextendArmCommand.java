@@ -17,7 +17,7 @@ public class PIDextendArmCommand extends PIDCommand {
   public PIDextendArmCommand(double target, ArmSubsystem armSubsystem) {
     super(
         // The controller that the command will use
-        new PIDController(1, 1, 1),
+        new PIDController(.2, 0, 0),
         // This should return the measurement
         () -> armSubsystem.getArmEncoderDistance(),
         // This should return the setpoint (can also be a constant)
@@ -29,7 +29,9 @@ public class PIDextendArmCommand extends PIDCommand {
           SmartDashboard.putBoolean("PID extendarm command",true );
         });
     // Use addRequirements() here to declare subsystem dependencies.
+    addRequirements(armSubsystem);
     // Configure additional PID options by calling `getController` here.
+    getController().setTolerance(1, 0.1);
   }
 
   // Returns true when the command should end.

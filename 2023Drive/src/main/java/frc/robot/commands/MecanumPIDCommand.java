@@ -36,7 +36,7 @@ public class MecanumPIDCommand extends PIDCommand {
           driver.MecanumDrive(output, 0, 0);
         });
 
-    getController().setTolerance(4);
+    getController().setTolerance(4,0.5);
     addRequirements(driver);
 
     // Use addRequirements() here to declare subsystem dependencies.

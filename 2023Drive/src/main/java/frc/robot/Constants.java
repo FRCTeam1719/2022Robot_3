@@ -43,9 +43,10 @@ public static final double Zero_for_now = 0; // change to 0
 public static final double SPEED_REGULATOR = 0.65;
 public static final double DEAD_ZONE_VALUE = 0.03;
 public static final double TURN_REGULATOR = 0.6;
-public static final double ARMSPEED_SCALER = 0.55;
+public static final double ARMSPEED_SCALER = 0.65;
+public static final double ARMEXTEND_SCALER = 0.75;
 
-// Time of Flight 
+// Time of Flight
 public static final int TIMEOFFLIGHT_ID = 0;
 
 public static final double MAX_DISTANCE = 1000;
@@ -58,9 +59,9 @@ public static final double ARM_LONG = 1000;
 // Movement PID's 
 
 
-public static final double DRIVEkp = 1;
-public static final double DRIVEki = 1;
-public static final double DRIVEkd = 1;
+public static final double DRIVEkp = .5;
+public static final double DRIVEki = 0;
+public static final double DRIVEkd = 0;
 
 // PercentPositions for encoder extension
  

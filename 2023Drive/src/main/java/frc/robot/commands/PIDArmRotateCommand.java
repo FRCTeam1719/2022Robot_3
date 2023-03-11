@@ -5,31 +5,32 @@
 package frc.robot.commands;
 
 import edu.wpi.first.math.controller.PIDController;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.PIDCommand;
 import frc.robot.subsystems.ArmSubsystem;
 
 // NOTE:  Consider using this command inline, rather than writing a subclass.  For more
 // information, see:
 // https://docs.wpilib.org/en/stable/docs/software/commandbased/convenience-features.html
-public class ExtendEncoderCommand extends PIDCommand {
-  /** Creates a new ExtendEncoderCommand. */
-  public ExtendEncoderCommand(ArmSubsystem Arm, double percentTarget) {
+public class PIDArmRotateCommand extends PIDCommand {
+  /** Creates a new PIDArmRotateCommand. */
+  public PIDArmRotateCommand(ArmSubsystem arm, double target) {
     super(
         // The controller that the command will use
-        new PIDController(1, 0.1, 0.1),
+        new PIDController(5, 0, .925),
         // This should return the measurement
-        () -> Arm.getArmEncoderDistance(),
+        () -> arm.rotateAngle(),
         // This should return the setpoint (can also be a constant)
-        () -> percentTarget,
+        target,
         // This uses the output
         output -> {
-          Arm.extend(output);
+          // Use the output here
+          arm.rotate(output);
         });
-    // Use addRequirements() here to declare subsystem dependencies.
+    // Use addRequirements() here to declare subsystem dependencies
+    addRequirements(arm);
     // Configure additional PID options by calling `getController` here.
-    getController().setTolerance(1.0);
-    SmartDashboard.putBoolean("Talererance",true );  }
+    getController().setTolerance(0.005, 0.005);
+  }
 
   // Returns true when the command should end.
   @Override
