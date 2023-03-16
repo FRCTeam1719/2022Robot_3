@@ -37,21 +37,21 @@ private double setpoint = 0;
     dispY=0;
     dispX=0;
     setpoint = 0;
-    testAutongrab();
-    //testAutondrive();
+    //AutonSpot2();
+    AutonSpot1();
 
      
   }
   
-  private void testAutongrab(){
+  private void AutonSpot2(){
       // Add your commands in the addCommands() call, e.g.
     // addCommands(new FooCommand(), new BarCommand());
     addCommands(
     
  
 zerCommand(),
-
-armRotate(0.14),
+isGrab(true),
+armRotate(0.14), 
 armTarget(100),
 isGrab(false),
 delay(1),
@@ -70,15 +70,20 @@ brake()
 
   );
   }
-  private void testAutondrive(){
+  private void AutonSpot1(){
     // Addd your commands in the addCommands() call, e.g.
   // addCommands(new FooCommand(), new BarCommand());
   addCommands( 
-    zerCommand()
-   
-    
-  
-
+    // zerCommand(),
+    // isGrab(true),
+    // armRotate(0.14), 
+    // armTarget(100),
+    // isGrab(false),
+    // delay(1),
+    // armTarget(0),
+    // armRotate(0),
+    //forward(5),
+    right(10)
 );
 }
 
