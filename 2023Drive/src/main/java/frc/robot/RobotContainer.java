@@ -4,8 +4,6 @@
 
 package frc.robot;
 
-import java.util.Date;
-
 import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.networktables.NetworkTable;
@@ -13,14 +11,22 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.XboxController.Button;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.commands.*;
-import frc.robot.subsystems.*;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
-import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutonSequentialCommands;
+import frc.robot.commands.GrabShiftCommand;
+import frc.robot.commands.ManualArmCommands;
+import frc.robot.commands.MecanumDriveCommand;
+import frc.robot.commands.MecanumPIDCommand;
+import frc.robot.subsystems.ArmSubsystem;
+import frc.robot.subsystems.BreakSubsystem;
+import frc.robot.subsystems.GrabberSubsystem;
+import frc.robot.subsystems.LedSubsystem;
+import frc.robot.subsystems.LimelightSubsystem;
+import frc.robot.subsystems.MecanumDriveSubsystem;
 
 /**
  * This class is where the bulk of the robot should be declared. Since
@@ -91,7 +97,7 @@ public class RobotContainer {
     this.m_Arm.setDefaultCommand(ManualMode);
     new JoystickButton(m_helperController, Button.kB.value)
         .onTrue(new InstantCommand(() -> {
-          System.out.println(this.limelight.getDistance());
+         // System.out.println(this.limelight.getDistance());
           new MecanumPIDCommand(this.limelight, this.m_MecanumDriveSubsystem);
           this.led.LIME();
         }));
@@ -118,10 +124,14 @@ public class RobotContainer {
           this.m_Break.ToggleBreak();
           this.led.RED();
         }));
-    new JoystickButton(m_driveController, Button.kA.value)
-        .onTrue(new InstantCommand(() -> {
-          this.m_Arm.getArmDistance();
-        }));
+    new JoystickButton(m_helperController, Button.kY.value)
+        .onTrue(new SequentialCommandGroup(new InstantCommand(() -> {
+          this.Grabber.Grab();}), new WaitCommand(0.2), new InstantCommand(() -> {
+            this.Grabber.Ungrab();})));
+    new JoystickButton(m_helperController, Button.kA.value)
+        .onTrue(new SequentialCommandGroup(new InstantCommand(() -> {
+          this.Grabber.Grab();}), new WaitCommand(0.07), new InstantCommand(() -> {
+            this.Grabber.Ungrab();})));
     new JoystickButton(m_helperController, Button.kRightStick.value)
         .whileTrue(new InstantCommand(() -> {
           this.m_Arm.OverrideExtend(true);
