@@ -40,7 +40,7 @@ public static final double INCHES_FROM_GOAL = 24; // change to 4
 public static final double Zero_for_now = 0; // change to 0
 
 // Speed Regulator
-public static final double SPEED_REGULATOR = 0.65;
+public static final double SPEED_REGULATOR = 0.75;
 public static final double DEAD_ZONE_VALUE = 0.03;
 public static final double TURN_REGULATOR = 0.6;
 public static final double ARMSPEED_SCALER = 0.65;
@@ -69,11 +69,11 @@ public static final double PERCENT_BEGIN = 0; // Change to 0
 public static final double PERCENT_MID = 50;
 public static final double PERCENT_LONG = 90;
 public static final double PERCENT_MAX = 100; //Change to 100
-public static final double PERCENT_MAX_HEIGHT = 80; //Change to 100
+public static final double PERCENT_MAX_HEIGHT = 110; //Change to 100
 
 // armangles
 
-public static final double MAX_ROTATE = 0.285; // change to 0.275
+public static final double MAX_ROTATE = 0.325; // change to 0.275
 
 
 

@@ -6,6 +6,7 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.PneumaticsModuleType;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class GrabberSubsystem extends SubsystemBase {
   /** Creates a new GrabberSubsystem. */
@@ -24,7 +25,7 @@ public class GrabberSubsystem extends SubsystemBase {
       Grabswitch.set(false);
        
      }
- 
+    
   @Override
   public void periodic() {
     // This method will be called once per scheduler run

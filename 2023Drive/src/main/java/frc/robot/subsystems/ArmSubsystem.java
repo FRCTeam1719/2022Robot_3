@@ -28,6 +28,7 @@ public class ArmSubsystem extends SubsystemBase {
   private RelativeEncoder ExtendEncoder;
 
 
+
   public ArmSubsystem() {
     this.armDistance = new TimeOfFlight(Constants.TIMEOFFLIGHT_ID);
     this.armRotate = new CANSparkMax(Constants.ARM_ROTATE_CAN_ID, MotorType.kBrushless);
@@ -84,6 +85,7 @@ public class ArmSubsystem extends SubsystemBase {
   }
  
   public void rotate(double rotateSpeed){
+System.out.println(rotateSpeed);
     boolean lessThanMax = this.rotateAngle() < Constants.MAX_ROTATE;
     boolean moreThanOtherMax = this.rotateAngle() > -Constants.MAX_ROTATE;
     boolean highrange = (this.rotateAngle() > -.125 && this.rotateAngle() < .125);

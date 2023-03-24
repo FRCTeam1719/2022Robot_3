@@ -85,7 +85,7 @@ public class RobotContainer {
         m_driveController::getRightX);
 
     ManualArmCommands ManualMode = new ManualArmCommands(
-        this.m_Arm, m_helperController::getLeftY, m_helperController::getRightY);
+        this.m_Arm, m_helperController::getLeftY, m_helperController::getRightY, m_helperController::getRightTriggerAxis);
 
     this.m_MecanumDriveSubsystem.setDefaultCommand(DriveMode);
     this.m_Arm.setDefaultCommand(ManualMode);
@@ -141,6 +141,8 @@ public class RobotContainer {
         .whileFalse(new InstantCommand(() -> {
           this.m_Arm.OverrideRotate(false);
         }));
+        new JoystickButton(m_helperController, Button.kB.value)
+        .whileTrue(new GrabShiftCommand(Grabber));
   }
 
   public Command getAutonomousCommand() {

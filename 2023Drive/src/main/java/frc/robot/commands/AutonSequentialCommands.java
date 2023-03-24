@@ -37,8 +37,8 @@ private double setpoint = 0;
     dispY=0;
     dispX=0;
     setpoint = 0;
-    //AutonSpot2();
-    AutonSpot1();
+    AutonSpot2();
+    //AutonSpot1();
 
      
   }
@@ -50,6 +50,9 @@ private double setpoint = 0;
     
  
 zerCommand(),
+delay(.5),
+ToggleBreak(),
+delay(.5),
 isGrab(true),
 armRotate(0.14), 
 armTarget(100),
@@ -57,8 +60,8 @@ isGrab(false),
 delay(1),
 armTarget(0),
 armRotate(0),
-forward(30),
-brake()
+forward(25),
+ToggleBreak()
         
   
 
@@ -74,16 +77,18 @@ brake()
     // Addd your commands in the addCommands() call, e.g.
   // addCommands(new FooCommand(), new BarCommand());
   addCommands( 
-    // zerCommand(),
-    // isGrab(true),
-    // armRotate(0.14), 
-    // armTarget(100),
-    // isGrab(false),
-    // delay(1),
-    // armTarget(0),
-    // armRotate(0),
-    //forward(5),
-    right(10)
+    zerCommand(),
+    delay(.5),
+    ToggleBreak(),
+    delay(.5),
+    isGrab(true),
+    armRotate(0.14), 
+    armTarget(100),
+    isGrab(false),
+    delay(1),
+    armTarget(0),
+    armRotate(0),
+    forward(35)   
 );
 }
 
@@ -108,8 +113,8 @@ brake()
     // 1 should be a full rotation. use small fractions
     return new PIDArmRotateCommand(m_armSubsystem, target);
   }
-  private InstantCommand brake(){
-    return new InstantCommand(() ->{ this.m_BrakeSubsystem.Break();});
+  private InstantCommand ToggleBreak(){
+    return new InstantCommand(() ->{ this.m_BrakeSubsystem.ToggleBreak();});
   }
   private PIDforwardCommand forward(double distance){
     dispY+=distance;

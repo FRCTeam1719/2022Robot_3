@@ -14,14 +14,16 @@ public class ManualArmCommands extends CommandBase {
   /** Creates a new ManualArmCommands. */
   private DoubleSupplier leftY;
   private DoubleSupplier rightY;
+  private DoubleSupplier rightTrigger;
   private ArmSubsystem arm;
 
-  public ManualArmCommands(ArmSubsystem m_arm, DoubleSupplier m_leftY, DoubleSupplier m_rightY) {
+  public ManualArmCommands(ArmSubsystem m_arm, DoubleSupplier m_leftY, DoubleSupplier m_rightY, DoubleSupplier m_rightTrigger) {
     addRequirements(m_arm);
 
     this.leftY = m_leftY;
     this.rightY = m_rightY;
     this.arm = m_arm;
+    this.rightTrigger = m_rightTrigger;
 
   }
 
@@ -34,11 +36,13 @@ public class ManualArmCommands extends CommandBase {
   @Override
   public void execute() {
     this.arm.extend(-Math.pow(
-        Math.signum(this.rightY.getAsDouble()) * Math.min(1, Math.abs(this.rightY.getAsDouble())) * Constants.ARMEXTEND_SCALER, 3));
+        Math.signum(this.rightY.getAsDouble()) * Math.min(1, Math.abs(this.rightY.getAsDouble())* Constants.ARMEXTEND_SCALER) , 3));
+
     this.arm.rotate(-Math.pow(
-        Math.signum(this.leftY.getAsDouble()) * Math.min(1, Math.abs(this.leftY.getAsDouble())) * Constants.ARMSPEED_SCALER, 3));
+        Math.signum(this.leftY.getAsDouble()) * Math.min(1, Math.abs(this.leftY.getAsDouble())* Constants.ARMSPEED_SCALER*(rightTrigger.getAsDouble()+1)) , 3));
 
   }
+
 
   // Called once the command ends or is interrupted.
   @Override

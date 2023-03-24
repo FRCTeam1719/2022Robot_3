@@ -85,8 +85,7 @@ public class LedSubsystem extends SubsystemBase {
     @Override
     public void periodic() {
         // This method will be called once per scheduler run
-        this.LIME();
-
+         LBLUE();
         this.led.setData(ledBuffer);
         this.move+=1;
     }
